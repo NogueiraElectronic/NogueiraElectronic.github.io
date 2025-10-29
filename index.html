@@ -53,7 +53,7 @@
     .hero-content .subtitle{font-size:1.5rem;color:var(--primary);font-weight:500;margin-bottom:1.5rem}
     .hero-content .description{font-size:1.1rem;color:var(--text-secondary);margin-bottom:2rem;line-height:1.7}
     .hero-image{width:100%;height:500px;background:rgba(255,255,255,.8);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:1rem;position:relative;overflow:hidden;backdrop-filter:blur(10px);box-shadow:var(--shadow-lg)}
-    .hero-image::before{content:"TU FOTO PROFESIONAL";position:absolute;font-size:1.1rem;font-weight:500;color:var(--text-light)}
+    .hero-image::before{content:"";position:absolute;font-size:1.1rem;font-weight:500;color:var(--text-light)}
     .hero-image img{width:100%;height:100%;object-fit:cover}
 
     /* Botones */
@@ -723,6 +723,44 @@
     });
 
     console.log("%cPortfolio i18n + KPI listo ✅","font-size:14px;color:#2563eb");
+   
+  // --- HERO ROTATOR EN LA CAJA DE LA DERECHA ---
+  const HERO_PHOTOS = [
+    'img/hero1.jpg',
+    'img/hero2.jpg',
+    'img/hero3.jpg'
+  ];
+
+  function preloadHeroPhotos() {
+    HERO_PHOTOS.forEach(src => { const img = new Image(); img.src = src; });
+  }
+
+  function startHeroRotator() {
+    const el = document.querySelector('.hero-image');
+    if (!el || HERO_PHOTOS.length === 0) return;
+
+    // primera imagen
+    let i = 0;
+    el.style.backgroundImage = `url('${HERO_PHOTOS[i]}')`;
+
+    // rotación cada 6s
+    setInterval(() => {
+      i = (i + 1) % HERO_PHOTOS.length;
+      // pequeño truco para un fade simple
+      el.style.opacity = '0.3';
+      setTimeout(() => {
+        el.style.backgroundImage = `url('${HERO_PHOTOS[i]}')`;
+        el.style.opacity = '1';
+      }, 200);
+    }, 6000);
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    preloadHeroPhotos();
+    startHeroRotator();
+  });
+
+
   </script>
 </body>
 </html>
