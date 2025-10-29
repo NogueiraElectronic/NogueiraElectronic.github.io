@@ -81,30 +81,45 @@
     section{padding:5rem 2rem}
     .section-light{background:var(--bg-primary)}
     .section-dark{background:var(--bg-secondary)}
-    .container{max-width:1280px;margin:0 auto}
-    .section-header{margin-bottom:3rem}
-    .section-header h2{font-size:2.5rem;font-weight:700;color:var(--text-primary);margin-bottom:.75rem;letter-spacing:-.025em}
-    .section-header p{font-size:1.1rem;color:var(--text-secondary);max-width:700px}
-
-    /* ===== NUEVA SECCIÓN KPI (sustituye a las stats anteriores) ===== */
-    .kpis{
+    
+    /* Sección de Skills con fondo hero2 */
+    #habilidades{
       position:relative;
-      padding:4rem 0;
       background-image:url('img/hero2.jpg');
       background-size:cover;
       background-position:center;
       background-attachment:fixed;
     }
-    .kpis::before{
+    #habilidades::before{
       content:"";
       position:absolute;
       inset:0;
-      background:rgba(255,255,255,0.92);
+      background:rgba(249,250,251,0.92);
       z-index:0;
     }
-    .kpis-topband{display:none;}
-    .kpis .kpis-container{max-width:1280px;margin:0 auto;padding:0 2rem;position:relative;z-index:1}
-    .kpi-grid{display:grid;gap:2rem;margin-top:0}
+    #habilidades .container{
+      position:relative;
+      z-index:1;
+    }
+    
+    .container{max-width:1280px;margin:0 auto}
+    .section-header{margin-bottom:3rem}
+    .section-header h2{font-size:2.5rem;font-weight:700;color:var(--text-primary);margin-bottom:.75rem;letter-spacing:-.025em}
+    .section-header p{font-size:1.1rem;color:var(--text-secondary);max-width:700px}
+
+    /* ===== SECCIÓN KPI con fondo original ===== */
+    .kpis{position:relative;background:var(--bg-secondary);padding:0 0 4rem}
+    .kpis-topband{
+      height:90px;
+      background-image:url('img/stone-texture.jpg');
+      background-size: cover;
+      background-position:center;
+      background-repeat: no-repeat;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      box-shadow:inset 0 -10px 20px rgba(0,0,0,.05)
+    }
+    .kpis .kpis-container{max-width:1280px;margin:0 auto;padding:0 2rem}
+    .kpi-grid{display:grid;gap:2rem;margin-top:-45px}
     /* 3 columnas en desktop, 2 en tablet, 1 en móvil */
     @media (min-width:1025px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
     @media (max-width:1024px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
@@ -299,8 +314,9 @@
     </div>
   </section>
 
-  <!-- ===== NUEVOS KPI ===== -->
+  <!-- ===== KPI con fondo stone-texture original ===== -->
   <section class="kpis" aria-label="Indicadores destacados">
+    <div class="kpis-topband"></div>
     <div class="kpis-container">
       <div class="kpi-grid">
 
