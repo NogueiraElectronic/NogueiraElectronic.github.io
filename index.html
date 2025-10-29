@@ -1,836 +1,725 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Jesús Torres Nogueira - Ingeniero Electrónico especializado en Machine Learning, Visión Artificial y Sistemas Embebidos">
-    <meta name="keywords" content="machine learning, vision artificial, sistemas embebidos, IoT, automatización, ingeniero">
-    <meta name="author" content="Jesús Torres Nogueira">
-    <title data-i18n="meta.title">Jesús Torres Nogueira | Ingeniero Electrónico</title>
-    
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Jesús Torres Nogueira - Ingeniero Electrónico especializado en Machine Learning, Visión Artificial y Sistemas Embebidos"/>
+  <meta name="keywords" content="machine learning, vision artificial, sistemas embebidos, IoT, automatización, ingeniero"/>
+  <meta name="author" content="Jesús Torres Nogueira"/>
+  <title data-i18n="meta.title">Jesús Torres Nogueira | Ingeniero Electrónico</title>
 
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1e40af;
-            --accent: #059669;
-            --text-primary: #1f2937;
-            --text-secondary: #6b7280;
-            --text-light: #9ca3af;
-            --bg-primary: #ffffff;
-            --bg-secondary: #f9fafb;
-            --bg-tertiary: #f3f4f6;
-            --border: #e5e7eb;
-            --border-light: #f3f4f6;
-            --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
-            --shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
-            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-        }
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --primary:#2563eb;--primary-dark:#1e40af;--accent:#059669;
+      --text-primary:#1f2937;--text-secondary:#6b7280;--text-light:#9ca3af;
+      --bg-primary:#ffffff;--bg-secondary:#f9fafb;--bg-tertiary:#f3f4f6;
+      --border:#e5e7eb;--border-light:#f3f4f6;
+      --shadow-sm:0 1px 2px 0 rgba(0,0,0,.05);
+      --shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06);
+      --shadow-md:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);
+      --shadow-lg:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -2px rgba(0,0,0,.05)
+    }
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Helvetica Neue',Arial,sans-serif;color:var(--text-primary);background:var(--bg-primary);line-height:1.6;font-size:16px}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            color: var(--text-primary);
-            background-color: var(--bg-primary);
-            line-height: 1.6;
-            font-size: 16px;
-        }
+    /* Header + nav + language */
+    header{position:fixed;top:0;width:100%;background:rgba(255,255,255,.98);backdrop-filter:blur(10px);z-index:1000;border-bottom:1px solid var(--border);box-shadow:var(--shadow-sm)}
+    nav{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem}
+    .logo-container{display:flex;align-items:center;gap:.75rem}
+    .logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;color:#fff;letter-spacing:-1px;box-shadow:var(--shadow)}
+    .logo-text{font-size:1.25rem;font-weight:600;color:var(--text-primary);letter-spacing:-.025em}
+    .nav-right{display:flex;align-items:center;gap:2rem}
+    .nav-links{display:flex;gap:2rem;list-style:none}
+    .nav-links a{color:var(--text-secondary);text-decoration:none;font-weight:500;font-size:.95rem;transition:color .2s}
+    .nav-links a:hover{color:var(--primary)}
+    .language-selector{display:flex;gap:.5rem;align-items:center}
+    .lang-flag{width:32px;height:24px;cursor:pointer;border:2px solid transparent;border-radius:4px;transition:all .2s;opacity:.6}
+    .lang-flag:hover{opacity:1;transform:scale(1.05)}
+    .lang-flag.active{opacity:1;border-color:var(--primary);box-shadow:0 0 0 2px rgba(37,99,235,.1)}
 
-        /* LOGO + SELECTOR IDIOMA */
-        header { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid var(--border); box-shadow: var(--shadow-sm); }
-        nav { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+    /* Hero + slider */
+    .hero{padding-top:6rem;padding-bottom:4rem;position:relative;overflow:hidden;min-height:600px;background:var(--bg-primary)}
+    .hero-background{position:absolute;inset:0;z-index:0}
+    .hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.5s ease-in-out;background-size:cover;background-position:center}
+    .hero-slide.active{opacity:1}
+    .hero-slide::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.92) 50%,rgba(255,255,255,.85) 100%)}
+    .hero-slide:nth-child(1){background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)}
+    .hero-slide:nth-child(2){background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%)}
+    .hero-slide:nth-child(3){background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%)}
+    .hero-container{max-width:1280px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1}
+    .hero-content h1{font-size:3rem;font-weight:700;color:var(--text-primary);margin-bottom:.5rem;line-height:1.1;letter-spacing:-.025em}
+    .hero-content .subtitle{font-size:1.5rem;color:var(--primary);font-weight:500;margin-bottom:1.5rem}
+    .hero-content .description{font-size:1.1rem;color:var(--text-secondary);margin-bottom:2rem;line-height:1.7}
+    .hero-image{width:100%;height:500px;background:rgba(255,255,255,.8);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:1rem;position:relative;overflow:hidden;backdrop-filter:blur(10px);box-shadow:var(--shadow-lg)}
+    .hero-image::before{content:"TU FOTO PROFESIONAL";position:absolute;font-size:1.1rem;font-weight:500;color:var(--text-light)}
+    .hero-image img{width:100%;height:100%;object-fit:cover}
 
-        .logo-container { display: flex; align-items: center; gap: .75rem; }
-        .logo-icon {
-            width: 40px; height: 40px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border-radius: 8px; display: flex; align-items: center; justify-content: center;
-            font-weight: 700; font-size: 1.1rem; color: #fff; letter-spacing: -1px; box-shadow: var(--shadow);
-        }
-        .logo-text { font-size: 1.25rem; font-weight: 600; color: var(--text-primary); letter-spacing: -0.025em; }
+    /* Botones */
+    .btn-group{display:flex;gap:1rem;flex-wrap:wrap}
+    .btn{padding:.75rem 1.5rem;font-size:1rem;font-weight:500;text-decoration:none;transition:all .2s;display:inline-block;cursor:pointer;border:none}
+    .btn-primary{background:var(--primary);color:#fff;box-shadow:var(--shadow)}
+    .btn-primary:hover{background:var(--primary-dark);box-shadow:var(--shadow-md)}
+    .btn-secondary{background:transparent;color:var(--primary);border:1px solid var(--border)}
+    .btn-secondary:hover{background:var(--bg-secondary);border-color:var(--primary)}
 
-        .nav-right { display: flex; align-items: center; gap: 2rem; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: .95rem; transition: color .2s; }
-        .nav-links a:hover { color: var(--primary); }
+    /* Secciones base */
+    section{padding:5rem 2rem}
+    .section-light{background:var(--bg-primary)}
+    .section-dark{background:var(--bg-secondary)}
+    .container{max-width:1280px;margin:0 auto}
+    .section-header{margin-bottom:3rem}
+    .section-header h2{font-size:2.5rem;font-weight:700;color:var(--text-primary);margin-bottom:.75rem;letter-spacing:-.025em}
+    .section-header p{font-size:1.1rem;color:var(--text-secondary);max-width:700px}
 
-        .language-selector { display: flex; gap: .5rem; align-items: center; }
-        .lang-flag { width: 32px; height: 24px; cursor: pointer; border: 2px solid transparent; border-radius: 4px; transition: all .2s; opacity: .6; }
-        .lang-flag:hover { opacity: 1; transform: scale(1.05); }
-        .lang-flag.active { opacity: 1; border-color: var(--primary); box-shadow: 0 0 0 2px rgba(37,99,235,.1); }
+    /* ===== NUEVA SECCIÓN KPI (sustituye a las stats anteriores) ===== */
+    .kpis{position:relative;background:var(--bg-secondary);padding:0 0 4rem}
+    .kpis-topband{
+      height:90px;
+      /* “Textura” ligera embebida (puedes cambiar por tu imagen) */
+      background-image:
+        radial-gradient(closest-side, rgba(0,0,0,.06), rgba(0,0,0,0) 80%),
+        linear-gradient(135deg,#e7e2da 0%,#d9d2c7 35%,#cfc7bb 70%,#e5dfd5 100%);
+      background-size:120px 120px, cover;
+      background-position:center;
+      border-bottom:1px solid rgba(0,0,0,.06);
+      box-shadow:inset 0 -10px 20px rgba(0,0,0,.05)
+    }
+    .kpis .kpis-container{max-width:1280px;margin:0 auto;padding:0 2rem}
+    .kpi-grid{display:grid;gap:2rem;margin-top:-45px}
+    /* 3 columnas en desktop, 2 en tablet, 1 en móvil */
+    @media (min-width:1025px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:1024px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.kpi-grid{grid-template-columns:1fr}}
 
-        /* HERO + SLIDER */
-        .hero { padding-top: 6rem; padding-bottom: 4rem; position: relative; overflow: hidden; min-height: 600px; background: var(--bg-primary); }
-        .hero-background { position: absolute; inset: 0; z-index: 0; }
-        .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.5s ease-in-out; background-size: cover; background-position: center; }
-        .hero-slide.active { opacity: 1; }
-        .hero-slide::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,.95) 0%, rgba(255,255,255,.92) 50%, rgba(255,255,255,.85) 100%); }
-        .hero-slide:nth-child(1) { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-        .hero-slide:nth-child(2) { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .hero-slide:nth-child(3) { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .kpi-card{
+      background:#fff;border:1px solid var(--border);border-radius:12px;
+      padding:2.25rem 1.75rem;box-shadow:0 6px 20px rgba(0,0,0,.06);
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease
+    }
+    .kpi-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.10);border-color:rgba(37,99,235,.25)}
+    .kpi-icon{width:52px;height:52px;border-radius:10px;display:grid;place-items:center;border:2px solid var(--border);margin-bottom:1rem}
+    .kpi-icon svg{width:26px;height:26px;stroke:#6b7280}
+    .kpi-title{font-size:1.05rem;letter-spacing:.08em;color:var(--text-primary);font-weight:700;text-transform:uppercase;margin-bottom:.35rem}
+    .kpi-sub{color:var(--text-secondary);font-size:.95rem}
 
-        .hero-container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 1; }
-        .hero-content h1 { font-size: 3rem; font-weight: 700; color: var(--text-primary); margin-bottom: .5rem; line-height: 1.1; letter-spacing: -0.025em; }
-        .hero-content .subtitle { font-size: 1.5rem; color: var(--primary); font-weight: 500; margin-bottom: 1.5rem; }
-        .hero-content .description { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.7; }
+    /* About, skills, projects, contact, footer (igual que antes) */
+    .stats-grid{display:none} /* oculta el antiguo bloque si quedara por error */
 
-        .hero-image { width: 100%; height: 500px; background: rgba(255,255,255,.8); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-light); font-size: 1rem; position: relative; overflow: hidden; backdrop-filter: blur(10px); box-shadow: var(--shadow-lg); }
-        .hero-image img { width: 100%; height: 100%; object-fit: cover; }
-        .hero-image::before { content: 'TU FOTO PROFESIONAL'; position: absolute; font-size: 1.1rem; font-weight: 500; color: var(--text-light); }
+    .about-grid{display:grid;grid-template-columns:2fr 1fr;gap:4rem}
+    .about-content h3{font-size:1.5rem;font-weight:600;color:var(--text-primary);margin-bottom:1rem}
+    .about-content p{color:var(--text-secondary);margin-bottom:1rem;line-height:1.7}
+    .info-list{list-style:none;background:var(--bg-primary);border:1px solid var(--border);padding:2rem}
+    .info-list li{padding:.75rem 0;border-bottom:1px solid var(--border-light);display:flex;justify-content:space-between}
+    .info-list li:last-child{border-bottom:none}
+    .info-label{font-weight:600;color:var(--text-primary)}
+    .info-value{color:var(--text-secondary);text-align:right}
 
-        /* BOTONES */
-        .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
-        .btn { padding: .75rem 1.5rem; font-size: 1rem; font-weight: 500; text-decoration: none; transition: all .2s; display: inline-block; cursor: pointer; border: none; }
-        .btn-primary { background: var(--primary); color: #fff; box-shadow: var(--shadow); }
-        .btn-primary:hover { background: var(--primary-dark); box-shadow: var(--shadow-md); }
-        .btn-secondary { background: transparent; color: var(--primary); border: 1px solid var(--border); }
-        .btn-secondary:hover { background: var(--bg-secondary); border-color: var(--primary); }
+    .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem}
+    .skill-card{background:var(--bg-primary);border:1px solid var(--border);padding:2rem;transition:all .2s}
+    .skill-card:hover{box-shadow:var(--shadow-md);border-color:var(--primary)}
+    .skill-icon{width:40px;height:40px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.2rem;margin-bottom:1rem}
+    .skill-card h3{font-size:1.2rem;font-weight:600;color:var(--text-primary);margin-bottom:1rem}
+    .skill-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+    .skill-tag{padding:.4rem .8rem;background:var(--bg-secondary);color:var(--text-secondary);font-size:.85rem;font-weight:500;border:1px solid var(--border)}
 
-        /* SECCIONES COMUNES */
-        section { padding: 5rem 2rem; }
-        .section-light { background: var(--bg-primary); }
-        .section-dark { background: var(--bg-secondary); }
-        .container { max-width: 1280px; margin: 0 auto; }
-        .section-header { margin-bottom: 3rem; }
-        .section-header h2 { font-size: 2.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: .75rem; letter-spacing: -0.025em; }
-        .section-header p { font-size: 1.1rem; color: var(--text-secondary); max-width: 700px; }
+    .projects-grid{display:grid;gap:3rem}
+    .project-card{background:var(--bg-primary);border:1px solid var(--border);display:grid;grid-template-columns:400px 1fr;overflow:hidden;transition:all .2s}
+    .project-card:hover{box-shadow:var(--shadow-lg)}
+    .project-image{width:100%;min-height:300px;background:var(--bg-secondary);border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:.95rem;position:relative;overflow:hidden}
+    .project-image::before{content:"SCREENSHOT DEL PROYECTO";position:absolute;font-weight:500}
+    .project-content{padding:2rem;display:flex;flex-direction:column}
+    .project-header{margin-bottom:1.5rem}
+    .project-category{font-size:.85rem;color:var(--primary);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}
+    .project-title{font-size:1.75rem;font-weight:700;color:var(--text-primary);margin-bottom:.75rem}
+    .project-description{color:var(--text-secondary);line-height:1.7;margin-bottom:1.5rem}
+    .project-features{margin-bottom:1.5rem}
+    .project-features h4{font-size:.95rem;font-weight:600;color:var(--text-primary);margin-bottom:.75rem}
+    .project-features ul{list-style:none;padding-left:0}
+    .project-features li{padding:.4rem 0;color:var(--text-secondary);padding-left:1.5rem;position:relative}
+    .project-features li::before{content:"▸";position:absolute;left:0;color:var(--primary);font-weight:700}
+    .project-tech{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem}
+    .tech-tag{padding:.35rem .75rem;background:var(--bg-secondary);color:var(--text-primary);font-size:.85rem;font-weight:500;border:1px solid var(--border)}
+    .project-stats{display:flex;gap:2rem;padding:1.5rem 0;border-top:1px solid var(--border-light);border-bottom:1px solid var(--border-light);margin-bottom:1.5rem}
+    .project-stat{flex:1}
+    .project-stat-value{font-size:1.5rem;font-weight:700;color:var(--primary);display:block}
+    .project-stat-label{font-size:.85rem;color:var(--text-secondary);font-weight:500}
+    .project-links{display:flex;gap:1rem;margin-top:auto}
+    .project-links .btn{padding:.6rem 1.2rem;font-size:.9rem}
 
-        /* STATS */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 2rem; margin-bottom: 3rem; }
-        .stat-card { text-align: center; padding: 2rem 1rem; background: var(--bg-primary); border: 1px solid var(--border); }
-        .stat-number { font-size: 2.5rem; font-weight: 700; color: var(--primary); display: block; margin-bottom: .5rem; }
-        .stat-label { font-size: 1rem; color: var(--text-secondary); font-weight: 500; }
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem}
+    .contact-info h3{font-size:1.5rem;font-weight:600;color:var(--text-primary);margin-bottom:1rem}
+    .contact-info p{color:var(--text-secondary);margin-bottom:2rem;line-height:1.7}
+    .contact-item{display:flex;gap:1rem;padding:1.5rem;background:var(--bg-secondary);border:1px solid var(--border);margin-bottom:1rem;transition:all .2s}
+    .contact-item:hover{border-color:var(--primary)}
+    .contact-icon{width:40px;height:40px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+    .contact-text h4{font-size:.95rem;font-weight:600;color:var(--text-primary);margin-bottom:.25rem}
+    .contact-text a{color:var(--text-secondary);text-decoration:none;transition:color .2s}
+    .contact-text a:hover{color:var(--primary)}
+    .contact-text small{color:var(--text-light);font-size:.85rem}
+    .contact-cta{background:var(--primary);color:#fff;padding:3rem;text-align:center}
+    .contact-cta h3{font-size:1.75rem;font-weight:700;margin-bottom:1rem}
+    .contact-cta p{margin-bottom:2rem;opacity:.95}
+    .contact-cta .btn{background:#fff;color:var(--primary);font-weight:600}
+    .contact-cta .btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
 
-        /* ABOUT */
-        .about-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 4rem; }
-        .about-content h3 { font-size: 1.5rem; font-weight: 600; color: var(--text-primary); margin-bottom: 1rem; }
-        .about-content p { color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7; }
-        .info-list { list-style: none; background: var(--bg-primary); border: 1px solid var(--border); padding: 2rem; }
-        .info-list li { padding: .75rem 0; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; }
-        .info-list li:last-child { border-bottom: none; }
-        .info-label { font-weight: 600; color: var(--text-primary); }
-        .info-value { color: var(--text-secondary); text-align: right; }
+    footer{background:var(--text-primary);color:#fff;padding:3rem 2rem;text-align:center}
+    footer p{color:rgba(255,255,255,.7);margin-bottom:.5rem}
+    .footer-links{display:flex;justify-content:center;gap:2rem;margin-top:1.5rem}
+    .footer-links a{color:rgba(255,255,255,.7);text-decoration:none;font-weight:500;transition:color .2s}
+    .footer-links a:hover{color:#fff}
 
-        /* SKILLS */
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 2rem; }
-        .skill-card { background: var(--bg-primary); border: 1px solid var(--border); padding: 2rem; transition: all .2s; }
-        .skill-card:hover { box-shadow: var(--shadow-md); border-color: var(--primary); }
-        .skill-icon { width: 40px; height: 40px; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; margin-bottom: 1rem; }
-        .skill-card h3 { font-size: 1.2rem; font-weight: 600; color: var(--text-primary); margin-bottom: 1rem; }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: .5rem; }
-        .skill-tag { padding: .4rem .8rem; background: var(--bg-secondary); color: var(--text-secondary); font-size: .85rem; font-weight: 500; border: 1px solid var(--border); }
+    /* Responsive generales */
+    @media (max-width:1024px){
+      .hero-container{grid-template-columns:1fr}
+      .hero-image{order:-1;height:400px}
+      .about-grid{grid-template-columns:1fr}
+      .project-card{grid-template-columns:1fr}
+      .project-image{height:300px;border-right:none;border-bottom:1px solid var(--border)}
+      .contact-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:768px){
+      .hero-content h1{font-size:2.5rem}
+      .hero-content .subtitle{font-size:1.25rem}
+      section{padding:3rem 1rem}
+      .section-header h2{font-size:2rem}
+      .project-title{font-size:1.5rem}
+    }
 
-        /* PROJECTS */
-        .projects-grid { display: grid; gap: 3rem; }
-        .project-card { background: var(--bg-primary); border: 1px solid var(--border); display: grid; grid-template-columns: 400px 1fr; overflow: hidden; transition: all .2s; }
-        .project-card:hover { box-shadow: var(--shadow-lg); }
-        .project-image { width: 100%; height: 100%; min-height: 300px; background: var(--bg-secondary); border-right: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-light); font-size: .95rem; position: relative; overflow: hidden; }
-        .project-image::before { content: 'SCREENSHOT DEL PROYECTO'; position: absolute; font-weight: 500; }
-        .project-content { padding: 2rem; display: flex; flex-direction: column; }
-        .project-header { margin-bottom: 1.5rem; }
-        .project-category { font-size: .85rem; color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .5rem; }
-        .project-title { font-size: 1.75rem; font-weight: 700; color: var(--text-primary); margin-bottom: .75rem; }
-        .project-description { color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem; }
-        .project-features { margin-bottom: 1.5rem; }
-        .project-features h4 { font-size: .95rem; font-weight: 600; color: var(--text-primary); margin-bottom: .75rem; }
-        .project-features ul { list-style: none; padding-left: 0; }
-        .project-features li { padding: .4rem 0; color: var(--text-secondary); padding-left: 1.5rem; position: relative; }
-        .project-features li::before { content: '▸'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
-        .project-tech { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
-        .tech-tag { padding: .35rem .75rem; background: var(--bg-secondary); color: var(--text-primary); font-size: .85rem; font-weight: 500; border: 1px solid var(--border); }
-        .project-stats { display: flex; gap: 2rem; padding: 1.5rem 0; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); margin-bottom: 1.5rem; }
-        .project-stat { flex: 1; }
-        .project-stat-value { font-size: 1.5rem; font-weight: 700; color: var(--primary); display: block; }
-        .project-stat-label { font-size: .85rem; color: var(--text-secondary); font-weight: 500; }
-        .project-links { display: flex; gap: 1rem; margin-top: auto; }
-        .project-links .btn { padding: .6rem 1.2rem; font-size: .9rem; }
-
-        /* CONTACTO */
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-        .contact-info h3 { font-size: 1.5rem; font-weight: 600; color: var(--text-primary); margin-bottom: 1rem; }
-        .contact-info p { color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.7; }
-        .contact-item { display: flex; gap: 1rem; padding: 1.5rem; background: var(--bg-secondary); border: 1px solid var(--border); margin-bottom: 1rem; transition: all .2s; }
-        .contact-item:hover { border-color: var(--primary); }
-        .contact-icon { width: 40px; height: 40px; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; }
-        .contact-text h4 { font-size: .95rem; font-weight: 600; color: var(--text-primary); margin-bottom: .25rem; }
-        .contact-text a { color: var(--text-secondary); text-decoration: none; transition: color .2s; }
-        .contact-text a:hover { color: var(--primary); }
-        .contact-text small { color: var(--text-light); font-size: .85rem; }
-
-        .contact-cta { background: var(--primary); color: #fff; padding: 3rem; text-align: center; }
-        .contact-cta h3 { font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; }
-        .contact-cta p { margin-bottom: 2rem; opacity: .95; }
-        .contact-cta .btn { background: #fff; color: var(--primary); font-weight: 600; }
-        .contact-cta .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-
-        /* FOOTER */
-        footer { background: var(--text-primary); color: #fff; padding: 3rem 2rem; text-align: center; }
-        footer p { color: rgba(255,255,255,.7); margin-bottom: .5rem; }
-        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; }
-        .footer-links a { color: rgba(255,255,255,.7); text-decoration: none; font-weight: 500; transition: color .2s; }
-        .footer-links a:hover { color: #fff; }
-
-        /* RESPONSIVE */
-        @media (max-width: 1024px) {
-            .hero-container { grid-template-columns: 1fr; }
-            .hero-image { order: -1; height: 400px; }
-            .about-grid { grid-template-columns: 1fr; }
-            .project-card { grid-template-columns: 1fr; }
-            .project-image { height: 300px; border-right: none; border-bottom: 1px solid var(--border); }
-            .contact-grid { grid-template-columns: 1fr; }
-        }
-        @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2.5rem; }
-            .hero-content .subtitle { font-size: 1.25rem; }
-            section { padding: 3rem 1rem; }
-            .section-header h2 { font-size: 2rem; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .project-title { font-size: 1.5rem; }
-        }
-
-        html { scroll-behavior: smooth; }
-        ::selection { background: var(--primary); color: #fff; }
-    </style>
+    html{scroll-behavior:smooth}
+    ::selection{background:var(--primary);color:#fff}
+  </style>
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <nav>
-            <div class="logo-container">
-                <div class="logo-icon" aria-hidden="true">JTN</div>
-                <div class="logo-text">Jesús Torres Nogueira</div>
-            </div>
+  <!-- HEADER -->
+  <header>
+    <nav>
+      <div class="logo-container">
+        <div class="logo-icon" aria-hidden="true">JTN</div>
+        <div class="logo-text">Jesús Torres Nogueira</div>
+      </div>
 
-            <div class="nav-right">
-                <ul class="nav-links">
-                    <li><a href="#inicio" data-i18n="nav.home">Inicio</a></li>
-                    <li><a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a></li>
-                    <li><a href="#habilidades" data-i18n="nav.skills">Habilidades</a></li>
-                    <li><a href="#proyectos" data-i18n="nav.projects">Proyectos</a></li>
-                    <li><a href="#contacto" data-i18n="nav.contact">Contacto</a></li>
-                </ul>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="#inicio" data-i18n="nav.home">Inicio</a></li>
+          <li><a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a></li>
+          <li><a href="#habilidades" data-i18n="nav.skills">Habilidades</a></li>
+          <li><a href="#proyectos" data-i18n="nav.projects">Proyectos</a></li>
+          <li><a href="#contacto" data-i18n="nav.contact">Contacto</a></li>
+        </ul>
 
-                <!-- Selector de idioma con banderas -->
-                <div class="language-selector" aria-label="Language selector">
-                    <!-- EN -->
-                    <img
-                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E%3Crect width='60' height='30' fill='%23012169'/%3E%3Cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23fff' stroke-width='6'/%3E%3Cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23C8102E' stroke-width='4'/%3E%3Cpath d='M30,0 v30 M0,15 h60' stroke='%23fff' stroke-width='10'/%3E%3Cpath d='M30,0 v30 M0,15 h60' stroke='%23C8102E' stroke-width='6'/%3E%3C/svg%3E"
-                        alt="English" class="lang-flag" data-lang="en" role="button" tabindex="0">
-                    <!-- ES -->
-                    <img
-                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 600'%3E%3Crect width='900' height='600' fill='%23c60b1e'/%3E%3Crect y='200' width='900' height='200' fill='%23ffc400'/%3E%3C/svg%3E"
-                        alt="Español" class="lang-flag" data-lang="es" role="button" tabindex="0">
-                </div>
-            </div>
-        </nav>
-    </header>
+        <!-- Selector de idioma -->
+        <div class="language-selector" aria-label="Language selector">
+          <!-- EN -->
+          <img
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3E%3Crect width='60' height='30' fill='%23012169'/%3E%3Cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23fff' stroke-width='6'/%3E%3Cpath d='M0,0 L60,30 M60,0 L0,30' stroke='%23C8102E' stroke-width='4'/%3E%3Cpath d='M30,0 v30 M0,15 h60' stroke='%23fff' stroke-width='10'/%3E%3Cpath d='M30,0 v30 M0,15 h60' stroke='%23C8102E' stroke-width='6'/%3E%3C/svg%3E"
+            alt="English" class="lang-flag" data-lang="en" role="button" tabindex="0">
+          <!-- ES -->
+          <img
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 600'%3E%3Crect width='900' height='600' fill='%23c60b1e'/%3E%3Crect y='200' width='900' height='200' fill='%23ffc400'/%3E%3C/svg%3E"
+            alt="Español" class="lang-flag" data-lang="es" role="button" tabindex="0">
+        </div>
+      </div>
+    </nav>
+  </header>
 
-    <!-- HERO -->
-    <section class="hero section-light" id="inicio">
-        <div class="hero-background">
-            <div class="hero-slide active"></div>
-            <div class="hero-slide"></div>
-            <div class="hero-slide"></div>
+  <!-- HERO -->
+  <section class="hero section-light" id="inicio">
+    <div class="hero-background">
+      <div class="hero-slide active"></div>
+      <div class="hero-slide"></div>
+      <div class="hero-slide"></div>
+    </div>
+
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1>Jesús Torres Nogueira</h1>
+        <p class="subtitle" data-i18n="hero.subtitle">Ingeniero Electrónico Industrial y Automático</p>
+        <p class="description" data-i18n="hero.description">
+          Desarrollo de proyectos de Machine Learning, Visión Artificial y Sistemas Embebidos.
+          Especializado en programación, IoT y automatización con un interés creciente en
+          modelos predictivos e inteligencia artificial.
+        </p>
+        <div class="btn-group">
+          <a href="#proyectos" class="btn btn-primary" data-i18n="hero.ctaProjects">Ver Proyectos</a>
+          <a href="#contacto" class="btn btn-secondary" data-i18n="hero.ctaContact">Contactar</a>
+        </div>
+      </div>
+      <div class="hero-image" aria-label="Foto profesional">
+        <!-- <img src="tu-foto.jpg" alt="Jesús Torres Nogueira"> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NUEVOS KPI (reemplazo visual de las stats) ===== -->
+  <section class="kpis" aria-label="Indicadores destacados">
+    <div class="kpis-topband"></div>
+    <div class="kpis-container">
+      <div class="kpi-grid">
+
+        <article class="kpi-card">
+          <div class="kpi-icon" aria-hidden="true">
+            <!-- briefcase -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke-width="1.8" stroke="currentColor" d="M9 7V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1m-9 0h10a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3v-7a3 3 0 0 1 3-3Zm3 6h4"/>
+            </svg>
+          </div>
+          <div class="kpi-title" data-i18n="kpi.exp.title">Experiencia</div>
+          <div class="kpi-sub" data-i18n="kpi.exp.sub">5+ años</div>
+        </article>
+
+        <article class="kpi-card">
+          <div class="kpi-icon" aria-hidden="true">
+            <!-- clipboard -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke-width="1.8" stroke="currentColor" d="M9 6h6M9 9h6M9 12h6M7 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/>
+            </svg>
+          </div>
+          <div class="kpi-title" data-i18n="kpi.projects.title">Proyectos</div>
+          <div class="kpi-sub" data-i18n="kpi.projects.sub">15+ completados</div>
+        </article>
+
+        <article class="kpi-card">
+          <div class="kpi-icon" aria-hidden="true">
+            <!-- cpu -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke-width="1.8" stroke="currentColor" d="M9 9h6v6H9zM3 10h2m0 4H3m16-4h2m-2 4h2M10 3v2m4-2v2m-4 16v-2m4 2v-2M7 7h10a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z"/>
+            </svg>
+          </div>
+          <div class="kpi-title" data-i18n="kpi.tech.title">Tecnologías</div>
+          <div class="kpi-sub" data-i18n="kpi.tech.sub">10+ dominadas</div>
+        </article>
+
+        <article class="kpi-card">
+          <div class="kpi-icon" aria-hidden="true">
+            <!-- smile -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke-width="1.8" stroke="currentColor" d="M15 10h.01M9 10h.01M8 14a4 4 0 0 0 8 0M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z"/>
+            </svg>
+          </div>
+          <div class="kpi-title" data-i18n="kpi.happy.title">Satisfacción</div>
+          <div class="kpi-sub" data-i18n="kpi.happy.sub">100% clientes</div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section-light" id="sobre-mi">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="about.title">Sobre mí</h2>
+        <p data-i18n="about.subtitle">Ingeniero con experiencia en IA, automatización y sistemas embebidos</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-content">
+          <h3 data-i18n="about.h3">Ingeniero especializado en soluciones inteligentes</h3>
+          <p data-i18n="about.p1">Como ingeniero electrónico industrial y automático, me especializo en crear soluciones innovadoras que combinan hardware y software. Mi experiencia abarca desde sistemas embebidos hasta algoritmos avanzados de machine learning y visión artificial.</p>
+          <p data-i18n="about.p2">Con un enfoque en desarrollar sistemas inteligentes que resuelvan problemas reales, mi trabajo se centra en la intersección entre la electrónica, la programación y la inteligencia artificial. Cada proyecto es una oportunidad para aplicar las últimas tecnologías y crear soluciones eficientes y escalables.</p>
+          <p data-i18n="about.p3">Mi interés creciente en modelos predictivos e IA me impulsa a estar constantemente aprendiendo y experimentando con nuevas técnicas y herramientas.</p>
+        </div>
+        <aside>
+          <ul class="info-list">
+            <li><span class="info-label" data-i18n="about.info.locationLabel">Ubicación</span><span class="info-value" data-i18n="about.info.locationValue">Vigo, España</span></li>
+            <li><span class="info-label">Email</span><span class="info-value">nogueira.electronico@gmail.com</span></li>
+            <li><span class="info-label" data-i18n="about.info.availabilityLabel">Disponibilidad</span><span class="info-value" data-i18n="about.info.availabilityValue">Proyectos Freelance</span></li>
+            <li><span class="info-label" data-i18n="about.info.specialtyLabel">Especialización</span><span class="info-value" data-i18n="about.info.specialtyValue">ML &amp; Visión Artificial</span></li>
+            <li><span class="info-label" data-i18n="about.info.experienceLabel">Experiencia</span><span class="info-value" data-i18n="about.info.experienceValue">5+ años</span></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section-dark" id="habilidades">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="skills.title">Habilidades Técnicas</h2>
+        <p data-i18n="skills.subtitle">Tecnologías y herramientas que domino para crear soluciones innovadoras</p>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">ML</div>
+          <h3 data-i18n="skills.ml.title">Machine Learning &amp; IA</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">PyTorch</span><span class="skill-tag">TensorFlow</span><span class="skill-tag">Scikit-learn</span>
+            <span class="skill-tag" data-i18n="skills.ml.dl">Deep Learning</span>
+            <span class="skill-tag" data-i18n="skills.ml.nn">Neural Networks</span>
+            <span class="skill-tag" data-i18n="skills.ml.pred">Modelos Predictivos</span>
+          </div>
         </div>
 
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1>Jesús Torres Nogueira</h1>
-                <p class="subtitle" data-i18n="hero.subtitle">Ingeniero Electrónico Industrial y Automático</p>
-                <p class="description" data-i18n="hero.description">
-                    Desarrollo de proyectos de Machine Learning, Visión Artificial y Sistemas Embebidos. 
-                    Especializado en programación, IoT y automatización con un interés creciente en 
-                    modelos predictivos e inteligencia artificial.
-                </p>
-                <div class="btn-group">
-                    <a href="#proyectos" class="btn btn-primary" data-i18n="hero.ctaProjects">Ver Proyectos</a>
-                    <a href="#contacto" class="btn btn-secondary" data-i18n="hero.ctaContact">Contactar</a>
-                </div>
-            </div>
-            <div class="hero-image" aria-label="Foto profesional">
-                <!-- <img src="tu-foto.jpg" alt="Jesús Torres Nogueira"> -->
-            </div>
+        <div class="skill-card">
+          <div class="skill-icon">CV</div>
+          <h3 data-i18n="skills.cv.title">Visión Artificial</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">OpenCV</span><span class="skill-tag">YOLO</span><span class="skill-tag">FaceNet</span>
+            <span class="skill-tag">InsightFace</span><span class="skill-tag">MediaPipe</span>
+            <span class="skill-tag" data-i18n="skills.cv.det">Object Detection</span>
+            <span class="skill-tag" data-i18n="skills.cv.trk">Tracking</span>
+          </div>
         </div>
-    </section>
 
-    <!-- STATS -->
-    <section class="section-dark">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-number">5+</span>
-                    <span class="stat-label" data-i18n="stats.years">Años de Experiencia</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">15+</span>
-                    <span class="stat-label" data-i18n="stats.projects">Proyectos Completados</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">10+</span>
-                    <span class="stat-label" data-i18n="stats.tech">Tecnologías Dominadas</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">100%</span>
-                    <span class="stat-label" data-i18n="stats.satisfaction">Satisfacción del Cliente</span>
-                </div>
-            </div>
+        <div class="skill-card">
+          <div class="skill-icon">{ }</div>
+          <h3 data-i18n="skills.prog.title">Programación</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span><span class="skill-tag">C/C++</span><span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">SQL</span><span class="skill-tag">Git</span><span class="skill-tag">Linux</span>
+          </div>
         </div>
-    </section>
 
-    <!-- ABOUT -->
-    <section class="section-light" id="sobre-mi">
-        <div class="container">
-            <div class="section-header">
-                <h2 data-i18n="about.title">Sobre mí</h2>
-                <p data-i18n="about.subtitle">Ingeniero con experiencia en IA, automatización y sistemas embebidos</p>
-            </div>
-            <div class="about-grid">
-                <div class="about-content">
-                    <h3 data-i18n="about.h3">Ingeniero especializado en soluciones inteligentes</h3>
-                    <p data-i18n="about.p1">
-                        Como ingeniero electrónico industrial y automático, me especializo en crear soluciones 
-                        innovadoras que combinan hardware y software. Mi experiencia abarca desde sistemas embebidos 
-                        hasta algoritmos avanzados de machine learning y visión artificial.
-                    </p>
-                    <p data-i18n="about.p2">
-                        Con un enfoque en desarrollar sistemas inteligentes que resuelvan problemas reales, 
-                        mi trabajo se centra en la intersección entre la electrónica, la programación y la 
-                        inteligencia artificial. Cada proyecto es una oportunidad para aplicar las últimas 
-                        tecnologías y crear soluciones eficientes y escalables.
-                    </p>
-                    <p data-i18n="about.p3">
-                        Mi interés creciente en modelos predictivos e IA me impulsa a estar constantemente 
-                        aprendiendo y experimentando con nuevas técnicas y herramientas.
-                    </p>
-                </div>
-                <aside>
-                    <ul class="info-list">
-                        <li>
-                            <span class="info-label" data-i18n="about.info.locationLabel">Ubicación</span>
-                            <span class="info-value" data-i18n="about.info.locationValue">Vigo, España</span>
-                        </li>
-                        <li>
-                            <span class="info-label">Email</span>
-                            <span class="info-value">nogueira.electronico@gmail.com</span>
-                        </li>
-                        <li>
-                            <span class="info-label" data-i18n="about.info.availabilityLabel">Disponibilidad</span>
-                            <span class="info-value" data-i18n="about.info.availabilityValue">Proyectos Freelance</span>
-                        </li>
-                        <li>
-                            <span class="info-label" data-i18n="about.info.specialtyLabel">Especialización</span>
-                            <span class="info-value" data-i18n="about.info.specialtyValue">ML &amp; Visión Artificial</span>
-                        </li>
-                        <li>
-                            <span class="info-label" data-i18n="about.info.experienceLabel">Experiencia</span>
-                            <span class="info-value" data-i18n="about.info.experienceValue">5+ años</span>
-                        </li>
-                    </ul>
-                </aside>
-            </div>
+        <div class="skill-card">
+          <div class="skill-icon">IoT</div>
+          <h3 data-i18n="skills.iot.title">Sistemas Embebidos &amp; IoT</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Arduino</span><span class="skill-tag">Raspberry Pi</span><span class="skill-tag">ESP32</span>
+            <span class="skill-tag">MQTT</span><span class="skill-tag" data-i18n="skills.iot.sensors">Sensores</span>
+            <span class="skill-tag" data-i18n="skills.iot.edge">Edge Computing</span>
+          </div>
         </div>
-    </section>
 
-    <!-- SKILLS -->
-    <section class="section-dark" id="habilidades">
-        <div class="container">
-            <div class="section-header">
-                <h2 data-i18n="skills.title">Habilidades Técnicas</h2>
-                <p data-i18n="skills.subtitle">Tecnologías y herramientas que domino para crear soluciones innovadoras</p>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">ML</div>
-                    <h3 data-i18n="skills.ml.title">Machine Learning &amp; IA</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">PyTorch</span>
-                        <span class="skill-tag">TensorFlow</span>
-                        <span class="skill-tag">Scikit-learn</span>
-                        <span class="skill-tag" data-i18n="skills.ml.dl">Deep Learning</span>
-                        <span class="skill-tag" data-i18n="skills.ml.nn">Neural Networks</span>
-                        <span class="skill-tag" data-i18n="skills.ml.pred">Modelos Predictivos</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">CV</div>
-                    <h3 data-i18n="skills.cv.title">Visión Artificial</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">OpenCV</span>
-                        <span class="skill-tag">YOLO</span>
-                        <span class="skill-tag">FaceNet</span>
-                        <span class="skill-tag">InsightFace</span>
-                        <span class="skill-tag">MediaPipe</span>
-                        <span class="skill-tag" data-i18n="skills.cv.det">Object Detection</span>
-                        <span class="skill-tag" data-i18n="skills.cv.trk">Tracking</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">{ }</div>
-                    <h3 data-i18n="skills.prog.title">Programación</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">C/C++</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">SQL</span>
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">Linux</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">IoT</div>
-                    <h3 data-i18n="skills.iot.title">Sistemas Embebidos &amp; IoT</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Arduino</span>
-                        <span class="skill-tag">Raspberry Pi</span>
-                        <span class="skill-tag">ESP32</span>
-                        <span class="skill-tag">MQTT</span>
-                        <span class="skill-tag" data-i18n="skills.iot.sensors">Sensores</span>
-                        <span class="skill-tag" data-i18n="skills.iot.edge">Edge Computing</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">⚙</div>
-                    <h3 data-i18n="skills.auto.title">Automatización Industrial</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">PLCs</span>
-                        <span class="skill-tag">SCADA</span>
-                        <span class="skill-tag" data-i18n="skills.auto.ctrl">Control Systems</span>
-                        <span class="skill-tag" data-i18n="skills.auto.rob">Robótica</span>
-                        <span class="skill-tag" data-i18n="skills.auto.indAuto">Industrial Automation</span>
-                    </div>
-                </div>
-
-                <div class="skill-card">
-                    <div class="skill-icon">📊</div>
-                    <h3 data-i18n="skills.ds.title">Data Science &amp; Analytics</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">NumPy</span>
-                        <span class="skill-tag">Pandas</span>
-                        <span class="skill-tag">Matplotlib</span>
-                        <span class="skill-tag" data-i18n="skills.ds.da">Data Analysis</span>
-                        <span class="skill-tag" data-i18n="skills.ds.viz">Visualization</span>
-                    </div>
-                </div>
-            </div>
+        <div class="skill-card">
+          <div class="skill-icon">⚙</div>
+          <h3 data-i18n="skills.auto.title">Automatización Industrial</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">PLCs</span><span class="skill-tag">SCADA</span>
+            <span class="skill-tag" data-i18n="skills.auto.ctrl">Control Systems</span>
+            <span class="skill-tag" data-i18n="skills.auto.rob">Robótica</span>
+            <span class="skill-tag" data-i18n="skills.auto.indAuto">Industrial Automation</span>
+          </div>
         </div>
-    </section>
 
-    <!-- PROJECTS -->
-    <section class="section-light" id="proyectos">
-        <div class="container">
-            <div class="section-header">
-                <h2 data-i18n="projects.title">Proyectos Destacados</h2>
-                <p data-i18n="projects.subtitle">Soluciones reales desarrolladas con tecnologías de vanguardia</p>
-            </div>
-            <div class="projects-grid">
-                
-                <!-- PROJECT 1: NEXUS -->
-                <article class="project-card">
-                    <div class="project-image" aria-label="Imagen del proyecto NEXUS">
-                        <!-- <img src="nexus-screenshot.jpg" alt="NEXUS System"> -->
-                    </div>
-                    <div class="project-content">
-                        <div class="project-header">
-                            <div class="project-category" data-i18n="projects.nexus.category">Visión Artificial · Deep Learning</div>
-                            <h3 class="project-title" data-i18n="projects.nexus.title">NEXUS v8.0 - Sistema de Reconocimiento Facial</h3>
-                        </div>
-                        
-                        <p class="project-description" data-i18n="projects.nexus.desc">
-                            Sistema avanzado de reconocimiento facial multi-propósito con arquitectura ensemble 
-                            y capacidades únicas como Graph Neural Networks, predicción de movimiento con física, 
-                            y análisis de comportamiento en tiempo real.
-                        </p>
-
-                        <div class="project-features">
-                            <h4 data-i18n="projects.nexus.featuresTitle">Características principales:</h4>
-                            <ul>
-                                <li data-i18n="projects.nexus.f1">Ensemble de detectores (MTCNN, MediaPipe, Haar Cascade)</li>
-                                <li data-i18n="projects.nexus.f2">Fusión dinámica de embeddings con FaceNet e InsightFace</li>
-                                <li data-i18n="projects.nexus.f3">Graph Neural Networks para contexto social</li>
-                                <li data-i18n="projects.nexus.f4">Incertidumbre bayesiana para máxima confiabilidad</li>
-                                <li data-i18n="projects.nexus.f5">Re-identificación activa con tracking robusto</li>
-                                <li data-i18n="projects.nexus.f6">Análisis de comportamiento y patrones temporales</li>
-                            </ul>
-                        </div>
-
-                        <div class="project-tech">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">PyTorch</span>
-                            <span class="tech-tag">OpenCV</span>
-                            <span class="tech-tag">PyTorch Geometric</span>
-                            <span class="tech-tag">InsightFace</span>
-                            <span class="tech-tag">FaceNet</span>
-                            <span class="tech-tag">MediaPipe</span>
-                        </div>
-
-                        <div class="project-stats">
-                            <div class="project-stat">
-                                <span class="project-stat-value">100%</span>
-                                <span class="project-stat-label" data-i18n="projects.nexus.s1">Tasa de Reconocimiento</span>
-                            </div>
-                            <div class="project-stat">
-                                <span class="project-stat-value">~2000</span>
-                                <span class="project-stat-label" data-i18n="projects.nexus.s2">Líneas de Código</span>
-                            </div>
-                            <div class="project-stat">
-                                <span class="project-stat-value">4</span>
-                                <span class="project-stat-label" data-i18n="projects.nexus.s3">Aplicaciones Reales</span>
-                            </div>
-                        </div>
-
-                        <div class="project-links">
-                            <a href="https://github.com/tneog" class="btn btn-primary" target="_blank" data-i18n="projects.nexus.github">Ver en GitHub</a>
-                            <a href="#contacto" class="btn btn-secondary" data-i18n="projects.nexus.more">Más Información</a>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- PLACEHOLDER PROJECT -->
-                <article class="project-card" style="opacity: .6;">
-                    <div class="project-image"></div>
-                    <div class="project-content">
-                        <div class="project-header">
-                            <div class="project-category" data-i18n="projects.next.category">Próximamente</div>
-                            <h3 class="project-title" data-i18n="projects.next.title">Tu Próximo Proyecto</h3>
-                        </div>
-                        <p class="project-description" data-i18n="projects.next.desc">
-                            Espacio reservado para tu siguiente proyecto innovador. 
-                            Más proyectos serán agregados próximamente.
-                        </p>
-                    </div>
-                </article>
-
-            </div>
+        <div class="skill-card">
+          <div class="skill-icon">📊</div>
+          <h3 data-i18n="skills.ds.title">Data Science &amp; Analytics</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">NumPy</span><span class="skill-tag">Pandas</span><span class="skill-tag">Matplotlib</span>
+            <span class="skill-tag" data-i18n="skills.ds.da">Data Analysis</span>
+            <span class="skill-tag" data-i18n="skills.ds.viz">Visualization</span>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- CONTACT -->
-    <section class="section-dark" id="contacto">
-        <div class="container">
-            <div class="section-header">
-                <h2 data-i18n="contact.title">Contacto</h2>
-                <p data-i18n="contact.subtitle">¿Interesado en colaborar? Contáctame para discutir tu proyecto</p>
+  <!-- PROJECTS -->
+  <section class="section-light" id="proyectos">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="projects.title">Proyectos Destacados</h2>
+        <p data-i18n="projects.subtitle">Soluciones reales desarrolladas con tecnologías de vanguardia</p>
+      </div>
+      <div class="projects-grid">
+
+        <article class="project-card">
+          <div class="project-image" aria-label="Imagen del proyecto NEXUS"></div>
+          <div class="project-content">
+            <div class="project-header">
+              <div class="project-category" data-i18n="projects.nexus.category">Visión Artificial · Deep Learning</div>
+              <h3 class="project-title" data-i18n="projects.nexus.title">NEXUS v8.0 - Sistema de Reconocimiento Facial</h3>
             </div>
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3 data-i18n="contact.infoTitle">Información de Contacto</h3>
-                    <p data-i18n="contact.infoDesc">
-                        Estoy disponible para proyectos freelance, consultoría técnica y colaboraciones. 
-                        No dudes en contactarme para discutir cómo puedo ayudarte con tu proyecto.
-                    </p>
-
-                    <div class="contact-item">
-                        <div class="contact-icon">@</div>
-                        <div class="contact-text">
-                            <h4 data-i18n="contact.emailLabel">Email</h4>
-                            <a href="mailto:nogueira.electronico@gmail.com">nogueira.electronico@gmail.com</a>
-                            <br><small data-i18n="contact.response">Respuesta en 24 horas</small>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div class="contact-text">
-                            <h4 data-i18n="contact.locationLabel">Ubicación</h4>
-                            <span data-i18n="contact.locationValue">Vigo, España</span>
-                            <br><small data-i18n="contact.remote">Disponible para proyectos remotos</small>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-icon">🔗</div>
-                        <div class="contact-text">
-                            <h4>GitHub</h4>
-                            <a href="https://github.com/tneog" target="_blank">github.com/tneog</a>
-                            <br><small data-i18n="contact.githubHint">Revisa mi código y proyectos</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-cta">
-                    <h3 data-i18n="contact.ctaTitle">¿Tienes un proyecto en mente?</h3>
-                    <p data-i18n="contact.ctaDesc">
-                        Convirtamos tus ideas en realidad con soluciones de IA, 
-                        automatización y sistemas embebidos de última generación.
-                    </p>
-                    <a href="mailto:nogueira.electronico@gmail.com" class="btn" data-i18n="contact.ctaBtn">Enviar Email</a>
-                </div>
+            <p class="project-description" data-i18n="projects.nexus.desc">Sistema avanzado de reconocimiento facial multi-propósito con arquitectura ensemble y capacidades únicas como Graph Neural Networks, predicción de movimiento con física, y análisis de comportamiento en tiempo real.</p>
+            <div class="project-features">
+              <h4 data-i18n="projects.nexus.featuresTitle">Características principales:</h4>
+              <ul>
+                <li data-i18n="projects.nexus.f1">Ensemble de detectores (MTCNN, MediaPipe, Haar Cascade)</li>
+                <li data-i18n="projects.nexus.f2">Fusión dinámica de embeddings con FaceNet e InsightFace</li>
+                <li data-i18n="projects.nexus.f3">Graph Neural Networks para contexto social</li>
+                <li data-i18n="projects.nexus.f4">Incertidumbre bayesiana para máxima confiabilidad</li>
+                <li data-i18n="projects.nexus.f5">Re-identificación activa con tracking robusto</li>
+                <li data-i18n="projects.nexus.f6">Análisis de comportamiento y patrones temporales</li>
+              </ul>
             </div>
+            <div class="project-tech">
+              <span class="tech-tag">Python</span><span class="tech-tag">PyTorch</span><span class="tech-tag">OpenCV</span>
+              <span class="tech-tag">PyTorch Geometric</span><span class="tech-tag">InsightFace</span><span class="tech-tag">FaceNet</span><span class="tech-tag">MediaPipe</span>
+            </div>
+            <div class="project-stats">
+              <div class="project-stat"><span class="project-stat-value">100%</span><span class="project-stat-label" data-i18n="projects.nexus.s1">Tasa de Reconocimiento</span></div>
+              <div class="project-stat"><span class="project-stat-value">~2000</span><span class="project-stat-label" data-i18n="projects.nexus.s2">Líneas de Código</span></div>
+              <div class="project-stat"><span class="project-stat-value">4</span><span class="project-stat-label" data-i18n="projects.nexus.s3">Aplicaciones Reales</span></div>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/tneog" class="btn btn-primary" target="_blank" data-i18n="projects.nexus.github">Ver en GitHub</a>
+              <a href="#contacto" class="btn btn-secondary" data-i18n="projects.nexus.more">Más Información</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" style="opacity:.6;">
+          <div class="project-image"></div>
+          <div class="project-content">
+            <div class="project-header">
+              <div class="project-category" data-i18n="projects.next.category">Próximamente</div>
+              <h3 class="project-title" data-i18n="projects.next.title">Tu Próximo Proyecto</h3>
+            </div>
+            <p class="project-description" data-i18n="projects.next.desc">Espacio reservado para tu siguiente proyecto innovador. Más proyectos serán agregados próximamente.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section-dark" id="contacto">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="contact.title">Contacto</h2>
+        <p data-i18n="contact.subtitle">¿Interesado en colaborar? Contáctame para discutir tu proyecto</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3 data-i18n="contact.infoTitle">Información de Contacto</h3>
+          <p data-i18n="contact.infoDesc">Estoy disponible para proyectos freelance, consultoría técnica y colaboraciones. No dudes en contactarme para discutir cómo puedo ayudarte con tu proyecto.</p>
+
+          <div class="contact-item">
+            <div class="contact-icon">@</div>
+            <div class="contact-text">
+              <h4 data-i18n="contact.emailLabel">Email</h4>
+              <a href="mailto:nogueira.electronico@gmail.com">nogueira.electronico@gmail.com</a>
+              <br><small data-i18n="contact.response">Respuesta en 24 horas</small>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">
+              <h4 data-i18n="contact.locationLabel">Ubicación</h4>
+              <span data-i18n="contact.locationValue">Vigo, España</span>
+              <br><small data-i18n="contact.remote">Disponible para proyectos remotos</small>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">🔗</div>
+            <div class="contact-text">
+              <h4>GitHub</h4>
+              <a href="https://github.com/tneog" target="_blank">github.com/tneog</a>
+              <br><small data-i18n="contact.githubHint">Revisa mi código y proyectos</small>
+            </div>
+          </div>
         </div>
-    </section>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2025 Jesús Torres Nogueira. <span data-i18n="footer.rights">Todos los derechos reservados.</span></p>
-        <p data-i18n="footer.tagline">Ingeniero Electrónico · Machine Learning · Visión Artificial · IoT</p>
-        <div class="footer-links">
-            <a href="#inicio" data-i18n="nav.home">Inicio</a>
-            <a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a>
-            <a href="#proyectos" data-i18n="nav.projects">Proyectos</a>
-            <a href="#contacto" data-i18n="nav.contact">Contacto</a>
+        <div class="contact-cta">
+          <h3 data-i18n="contact.ctaTitle">¿Tienes un proyecto en mente?</h3>
+          <p data-i18n="contact.ctaDesc">Convirtamos tus ideas en realidad con soluciones de IA, automatización y sistemas embebidos de última generación.</p>
+          <a href="mailto:nogueira.electronico@gmail.com" class="btn" data-i18n="contact.ctaBtn">Enviar Email</a>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 
-    <!-- JAVASCRIPT -->
-    <script>
-        /* ===== Diccionario i18n ===== */
-        const i18n = {
-          es: {
-            "meta.title": "Jesús Torres Nogueira | Ingeniero Electrónico",
-            "nav.home": "Inicio",
-            "nav.about": "Sobre mí",
-            "nav.skills": "Habilidades",
-            "nav.projects": "Proyectos",
-            "nav.contact": "Contacto",
-            "hero.subtitle": "Ingeniero Electrónico Industrial y Automático",
-            "hero.description": "Desarrollo de proyectos de Machine Learning, Visión Artificial y Sistemas Embebidos. Especializado en programación, IoT y automatización con un interés creciente en modelos predictivos e inteligencia artificial.",
-            "hero.ctaProjects": "Ver Proyectos",
-            "hero.ctaContact": "Contactar",
-            "stats.years": "Años de Experiencia",
-            "stats.projects": "Proyectos Completados",
-            "stats.tech": "Tecnologías Dominadas",
-            "stats.satisfaction": "Satisfacción del Cliente",
-            "about.title": "Sobre mí",
-            "about.subtitle": "Ingeniero con experiencia en IA, automatización y sistemas embebidos",
-            "about.h3": "Ingeniero especializado en soluciones inteligentes",
-            "about.p1": "Como ingeniero electrónico industrial y automático, me especializo en crear soluciones innovadoras que combinan hardware y software. Mi experiencia abarca desde sistemas embebidos hasta algoritmos avanzados de machine learning y visión artificial.",
-            "about.p2": "Con un enfoque en desarrollar sistemas inteligentes que resuelvan problemas reales, mi trabajo se centra en la intersección entre la electrónica, la programación y la inteligencia artificial. Cada proyecto es una oportunidad para aplicar las últimas tecnologías y crear soluciones eficientes y escalables.",
-            "about.p3": "Mi interés creciente en modelos predictivos e IA me impulsa a estar constantemente aprendiendo y experimentando con nuevas técnicas y herramientas.",
-            "about.info.locationLabel": "Ubicación",
-            "about.info.locationValue": "Vigo, España",
-            "about.info.availabilityLabel": "Disponibilidad",
-            "about.info.availabilityValue": "Proyectos Freelance",
-            "about.info.specialtyLabel": "Especialización",
-            "about.info.specialtyValue": "ML & Visión Artificial",
-            "about.info.experienceLabel": "Experiencia",
-            "about.info.experienceValue": "5+ años",
-            "skills.title": "Habilidades Técnicas",
-            "skills.subtitle": "Tecnologías y herramientas que domino para crear soluciones innovadoras",
-            "skills.ml.title": "Machine Learning & IA",
-            "skills.ml.dl": "Deep Learning",
-            "skills.ml.nn": "Neural Networks",
-            "skills.ml.pred": "Modelos Predictivos",
-            "skills.cv.title": "Visión Artificial",
-            "skills.cv.det": "Object Detection",
-            "skills.cv.trk": "Tracking",
-            "skills.prog.title": "Programación",
-            "skills.iot.title": "Sistemas Embebidos & IoT",
-            "skills.iot.sensors": "Sensores",
-            "skills.iot.edge": "Edge Computing",
-            "skills.auto.title": "Automatización Industrial",
-            "skills.auto.ctrl": "Control Systems",
-            "skills.auto.rob": "Robótica",
-            "skills.auto.indAuto": "Industrial Automation",
-            "skills.ds.title": "Data Science & Analytics",
-            "skills.ds.da": "Data Analysis",
-            "skills.ds.viz": "Visualization",
-            "projects.title": "Proyectos Destacados",
-            "projects.subtitle": "Soluciones reales desarrolladas con tecnologías de vanguardia",
-            "projects.nexus.category": "Visión Artificial · Deep Learning",
-            "projects.nexus.title": "NEXUS v8.0 - Sistema de Reconocimiento Facial",
-            "projects.nexus.desc": "Sistema avanzado de reconocimiento facial multi-propósito con arquitectura ensemble y capacidades únicas como Graph Neural Networks, predicción de movimiento con física, y análisis de comportamiento en tiempo real.",
-            "projects.nexus.featuresTitle": "Características principales:",
-            "projects.nexus.f1": "Ensemble de detectores (MTCNN, MediaPipe, Haar Cascade)",
-            "projects.nexus.f2": "Fusión dinámica de embeddings con FaceNet e InsightFace",
-            "projects.nexus.f3": "Graph Neural Networks para contexto social",
-            "projects.nexus.f4": "Incertidumbre bayesiana para máxima confiabilidad",
-            "projects.nexus.f5": "Re-identificación activa con tracking robusto",
-            "projects.nexus.f6": "Análisis de comportamiento y patrones temporales",
-            "projects.nexus.s1": "Tasa de Reconocimiento",
-            "projects.nexus.s2": "Líneas de Código",
-            "projects.nexus.s3": "Aplicaciones Reales",
-            "projects.nexus.github": "Ver en GitHub",
-            "projects.nexus.more": "Más Información",
-            "projects.next.category": "Próximamente",
-            "projects.next.title": "Tu Próximo Proyecto",
-            "projects.next.desc": "Espacio reservado para tu siguiente proyecto innovador. Más proyectos serán agregados próximamente.",
-            "contact.title": "Contacto",
-            "contact.subtitle": "¿Interesado en colaborar? Contáctame para discutir tu proyecto",
-            "contact.infoTitle": "Información de Contacto",
-            "contact.infoDesc": "Estoy disponible para proyectos freelance, consultoría técnica y colaboraciones. No dudes en contactarme para discutir cómo puedo ayudarte con tu proyecto.",
-            "contact.emailLabel": "Email",
-            "contact.response": "Respuesta en 24 horas",
-            "contact.locationLabel": "Ubicación",
-            "contact.locationValue": "Vigo, España",
-            "contact.remote": "Disponible para proyectos remotos",
-            "contact.githubHint": "Revisa mi código y proyectos",
-            "contact.ctaTitle": "¿Tienes un proyecto en mente?",
-            "contact.ctaDesc": "Convirtamos tus ideas en realidad con soluciones de IA, automatización y sistemas embebidos de última generación.",
-            "contact.ctaBtn": "Enviar Email",
-            "footer.rights": "Todos los derechos reservados.",
-            "footer.tagline": "Ingeniero Electrónico · Machine Learning · Visión Artificial · IoT"
-          },
-          en: {
-            "meta.title": "Jesús Torres Nogueira | Electronic Engineer",
-            "nav.home": "Home",
-            "nav.about": "About",
-            "nav.skills": "Skills",
-            "nav.projects": "Projects",
-            "nav.contact": "Contact",
-            "hero.subtitle": "Industrial Electronics and Automation Engineer",
-            "hero.description": "I build Machine Learning, Computer Vision and Embedded Systems projects. Focused on programming, IoT and automation with a growing interest in predictive models and artificial intelligence.",
-            "hero.ctaProjects": "View Projects",
-            "hero.ctaContact": "Get in Touch",
-            "stats.years": "Years of Experience",
-            "stats.projects": "Projects Completed",
-            "stats.tech": "Technologies Mastered",
-            "stats.satisfaction": "Client Satisfaction",
-            "about.title": "About",
-            "about.subtitle": "Engineer with experience in AI, automation and embedded systems",
-            "about.h3": "Engineer specialized in intelligent solutions",
-            "about.p1": "As an industrial electronics and automation engineer, I create innovative solutions combining hardware and software. My experience ranges from embedded systems to advanced machine learning and computer vision algorithms.",
-            "about.p2": "I focus on building intelligent systems that solve real problems at the intersection of electronics, programming and AI. Each project is an opportunity to apply cutting-edge tech to create efficient, scalable solutions.",
-            "about.p3": "My growing interest in predictive models and AI pushes me to constantly learn and experiment with new techniques and tools.",
-            "about.info.locationLabel": "Location",
-            "about.info.locationValue": "Vigo, Spain",
-            "about.info.availabilityLabel": "Availability",
-            "about.info.availabilityValue": "Freelance Projects",
-            "about.info.specialtyLabel": "Specialty",
-            "about.info.specialtyValue": "ML & Computer Vision",
-            "about.info.experienceLabel": "Experience",
-            "about.info.experienceValue": "5+ years",
-            "skills.title": "Technical Skills",
-            "skills.subtitle": "Technologies and tools I use to build innovative solutions",
-            "skills.ml.title": "Machine Learning & AI",
-            "skills.ml.dl": "Deep Learning",
-            "skills.ml.nn": "Neural Networks",
-            "skills.ml.pred": "Predictive Models",
-            "skills.cv.title": "Computer Vision",
-            "skills.cv.det": "Object Detection",
-            "skills.cv.trk": "Tracking",
-            "skills.prog.title": "Programming",
-            "skills.iot.title": "Embedded Systems & IoT",
-            "skills.iot.sensors": "Sensors",
-            "skills.iot.edge": "Edge Computing",
-            "skills.auto.title": "Industrial Automation",
-            "skills.auto.ctrl": "Control Systems",
-            "skills.auto.rob": "Robotics",
-            "skills.auto.indAuto": "Industrial Automation",
-            "skills.ds.title": "Data Science & Analytics",
-            "skills.ds.da": "Data Analysis",
-            "skills.ds.viz": "Visualization",
-            "projects.title": "Featured Projects",
-            "projects.subtitle": "Real-world solutions built with cutting-edge technologies",
-            "projects.nexus.category": "Computer Vision · Deep Learning",
-            "projects.nexus.title": "NEXUS v8.0 - Facial Recognition System",
-            "projects.nexus.desc": "Advanced multi-purpose facial recognition system with an ensemble architecture and unique features such as Graph Neural Networks, physics-aware motion prediction, and real-time behavior analysis.",
-            "projects.nexus.featuresTitle": "Key features:",
-            "projects.nexus.f1": "Detector ensemble (MTCNN, MediaPipe, Haar Cascade)",
-            "projects.nexus.f2": "Dynamic embedding fusion with FaceNet and InsightFace",
-            "projects.nexus.f3": "Graph Neural Networks for social context",
-            "projects.nexus.f4": "Bayesian uncertainty for maximum reliability",
-            "projects.nexus.f5": "Active re-identification with robust tracking",
-            "projects.nexus.f6": "Behavior analysis and temporal patterns",
-            "projects.nexus.s1": "Recognition Rate",
-            "projects.nexus.s2": "Lines of Code",
-            "projects.nexus.s3": "Real Applications",
-            "projects.nexus.github": "View on GitHub",
-            "projects.nexus.more": "More Info",
-            "projects.next.category": "Coming soon",
-            "projects.next.title": "Your Next Project",
-            "projects.next.desc": "Reserved space for your next innovative project. More projects will be added soon.",
-            "contact.title": "Contact",
-            "contact.subtitle": "Interested in collaborating? Reach out to discuss your project",
-            "contact.infoTitle": "Contact Information",
-            "contact.infoDesc": "I'm available for freelance projects, technical consulting and collaborations. Feel free to contact me to discuss how I can help with your project.",
-            "contact.emailLabel": "Email",
-            "contact.response": "Reply within 24 hours",
-            "contact.locationLabel": "Location",
-            "contact.locationValue": "Vigo, Spain",
-            "contact.remote": "Available for remote projects",
-            "contact.githubHint": "Check my code and projects",
-            "contact.ctaTitle": "Have a project in mind?",
-            "contact.ctaDesc": "Let's turn your ideas into reality with state-of-the-art AI, automation and embedded systems.",
-            "contact.ctaBtn": "Send Email",
-            "footer.rights": "All rights reserved.",
-            "footer.tagline": "Electronic Engineer · Machine Learning · Computer Vision · IoT"
-          }
-        };
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Jesús Torres Nogueira. <span data-i18n="footer.rights">Todos los derechos reservados.</span></p>
+    <p data-i18n="footer.tagline">Ingeniero Electrónico · Machine Learning · Visión Artificial · IoT</p>
+    <div class="footer-links">
+      <a href="#inicio" data-i18n="nav.home">Inicio</a>
+      <a href="#sobre-mi" data-i18n="nav.about">Sobre mí</a>
+      <a href="#proyectos" data-i18n="nav.projects">Proyectos</a>
+      <a href="#contacto" data-i18n="nav.contact">Contacto</a>
+    </div>
+  </footer>
 
-        /* ===== Utilidad: aplicar traducciones ===== */
-        function applyI18n(lang) {
-          const dict = i18n[lang] || i18n.es;
-          document.querySelectorAll("[data-i18n]").forEach(el => {
-            const key = el.getAttribute("data-i18n");
-            if (dict[key] !== undefined) el.textContent = dict[key];
-          });
-          // Title (por si cambia fuera de data-i18n)
-          const titleKey = "meta.title";
-          if (dict[titleKey]) document.title = dict[titleKey];
-          // Cambiar lang del documento
-          document.documentElement.setAttribute("lang", lang);
-        }
+  <!-- JS -->
+  <script>
+    /* ===== i18n dictionary (ES / EN) ===== */
+    const i18n = {
+      es:{
+        "meta.title":"Jesús Torres Nogueira | Ingeniero Electrónico",
+        "nav.home":"Inicio","nav.about":"Sobre mí","nav.skills":"Habilidades","nav.projects":"Proyectos","nav.contact":"Contacto",
+        "hero.subtitle":"Ingeniero Electrónico Industrial y Automático",
+        "hero.description":"Desarrollo de proyectos de Machine Learning, Visión Artificial y Sistemas Embebidos. Especializado en programación, IoT y automatización con un interés creciente en modelos predictivos e inteligencia artificial.",
+        "hero.ctaProjects":"Ver Proyectos","hero.ctaContact":"Contactar",
 
-        /* ===== Idioma + banderas ===== */
-        function setActiveFlag(lang) {
-          document.querySelectorAll(".lang-flag").forEach(flag => {
-            flag.classList.toggle("active", flag.dataset.lang === lang);
-          });
-        }
+        /* KPI */
+        "kpi.exp.title":"Experiencia","kpi.exp.sub":"5+ años",
+        "kpi.projects.title":"Proyectos","kpi.projects.sub":"15+ completados",
+        "kpi.tech.title":"Tecnologías","kpi.tech.sub":"10+ dominadas",
+        "kpi.happy.title":"Satisfacción","kpi.happy.sub":"100% clientes",
 
-        function switchLanguage(lang) {
-          const supported = ["es", "en"];
-          const chosen = supported.includes(lang) ? lang : "es";
-          localStorage.setItem("preferredLanguage", chosen);
-          applyI18n(chosen);
-          setActiveFlag(chosen);
-        }
+        "about.title":"Sobre mí",
+        "about.subtitle":"Ingeniero con experiencia en IA, automatización y sistemas embebidos",
+        "about.h3":"Ingeniero especializado en soluciones inteligentes",
+        "about.p1":"Como ingeniero electrónico industrial y automático, me especializo en crear soluciones innovadoras que combinan hardware y software. Mi experiencia abarca desde sistemas embebidos hasta algoritmos avanzados de machine learning y visión artificial.",
+        "about.p2":"Con un enfoque en desarrollar sistemas inteligentes que resuelvan problemas reales, mi trabajo se centra en la intersección entre la electrónica, la programación y la inteligencia artificial. Cada proyecto es una oportunidad para aplicar las últimas tecnologías y crear soluciones eficientes y escalables.",
+        "about.p3":"Mi interés creciente en modelos predictivos e IA me impulsa a estar constantemente aprendiendo y experimentando con nuevas técnicas y herramientas.",
+        "about.info.locationLabel":"Ubicación","about.info.locationValue":"Vigo, España",
+        "about.info.availabilityLabel":"Disponibilidad","about.info.availabilityValue":"Proyectos Freelance",
+        "about.info.specialtyLabel":"Especialización","about.info.specialtyValue":"ML & Visión Artificial",
+        "about.info.experienceLabel":"Experiencia","about.info.experienceValue":"5+ años",
 
-        /* ===== Slider de fondo del HERO ===== */
-        let currentSlide = 0;
-        function nextSlide() {
-          const slides = document.querySelectorAll(".hero-slide");
-          if (!slides.length) return;
-          slides[currentSlide].classList.remove("active");
-          currentSlide = (currentSlide + 1) % slides.length;
-          slides[currentSlide].classList.add("active");
-        }
+        "skills.title":"Habilidades Técnicas",
+        "skills.subtitle":"Tecnologías y herramientas que domino para crear soluciones innovadoras",
+        "skills.ml.title":"Machine Learning & IA",
+        "skills.ml.dl":"Deep Learning","skills.ml.nn":"Neural Networks","skills.ml.pred":"Modelos Predictivos",
+        "skills.cv.title":"Visión Artificial","skills.cv.det":"Object Detection","skills.cv.trk":"Tracking",
+        "skills.prog.title":"Programación",
+        "skills.iot.title":"Sistemas Embebidos & IoT","skills.iot.sensors":"Sensores","skills.iot.edge":"Edge Computing",
+        "skills.auto.title":"Automatización Industrial","skills.auto.ctrl":"Control Systems","skills.auto.rob":"Robótica","skills.auto.indAuto":"Industrial Automation",
+        "skills.ds.title":"Data Science & Analytics","skills.ds.da":"Data Analysis","skills.ds.viz":"Visualization",
 
-        /* ===== Eventos e init ===== */
-        window.addEventListener("DOMContentLoaded", () => {
-          // Idioma por defecto: lo guardado o ES
-          const savedLang = localStorage.getItem("preferredLanguage") || "es";
-          switchLanguage(savedLang);
+        "projects.title":"Proyectos Destacados","projects.subtitle":"Soluciones reales desarrolladas con tecnologías de vanguardia",
+        "projects.nexus.category":"Visión Artificial · Deep Learning",
+        "projects.nexus.title":"NEXUS v8.0 - Sistema de Reconocimiento Facial",
+        "projects.nexus.desc":"Sistema avanzado de reconocimiento facial multi-propósito con arquitectura ensemble y capacidades únicas como Graph Neural Networks, predicción de movimiento con física, y análisis de comportamiento en tiempo real.",
+        "projects.nexus.featuresTitle":"Características principales:",
+        "projects.nexus.f1":"Ensemble de detectores (MTCNN, MediaPipe, Haar Cascade)",
+        "projects.nexus.f2":"Fusión dinámica de embeddings con FaceNet e InsightFace",
+        "projects.nexus.f3":"Graph Neural Networks para contexto social",
+        "projects.nexus.f4":"Incertidumbre bayesiana para máxima confiabilidad",
+        "projects.nexus.f5":"Re-identificación activa con tracking robusto",
+        "projects.nexus.f6":"Análisis de comportamiento y patrones temporales",
+        "projects.nexus.s1":"Tasa de Reconocimiento",
+        "projects.nexus.s2":"Líneas de Código",
+        "projects.nexus.s3":"Aplicaciones Reales",
+        "projects.nexus.github":"Ver en GitHub",
+        "projects.nexus.more":"Más Información",
+        "projects.next.category":"Próximamente",
+        "projects.next.title":"Tu Próximo Proyecto",
+        "projects.next.desc":"Espacio reservado para tu siguiente proyecto innovador. Más proyectos serán agregados próximamente.",
 
-          // Click/Enter en banderas (bidireccional)
-          document.querySelectorAll(".lang-flag").forEach(flag => {
-            flag.addEventListener("click", () => switchLanguage(flag.dataset.lang));
-            flag.addEventListener("keydown", e => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                switchLanguage(flag.dataset.lang);
-              }
-            });
-          });
+        "contact.title":"Contacto","contact.subtitle":"¿Interesado en colaborar? Contáctame para discutir tu proyecto",
+        "contact.infoTitle":"Información de Contacto","contact.infoDesc":"Estoy disponible para proyectos freelance, consultoría técnica y colaboraciones. No dudes en contactarme para discutir cómo puedo ayudarte con tu proyecto.",
+        "contact.emailLabel":"Email","contact.response":"Respuesta en 24 horas",
+        "contact.locationLabel":"Ubicación","contact.locationValue":"Vigo, España","contact.remote":"Disponible para proyectos remotos",
+        "contact.githubHint":"Revisa mi código y proyectos",
+        "contact.ctaTitle":"¿Tienes un proyecto en mente?","contact.ctaDesc":"Convirtamos tus ideas en realidad con soluciones de IA, automatización y sistemas embebidos de última generación.","contact.ctaBtn":"Enviar Email",
 
-          // Slider cada 5s
-          setInterval(nextSlide, 5000);
+        "footer.rights":"Todos los derechos reservados.",
+        "footer.tagline":"Ingeniero Electrónico · Machine Learning · Visión Artificial · IoT"
+      },
+
+      en:{
+        "meta.title":"Jesús Torres Nogueira | Electronic Engineer",
+        "nav.home":"Home","nav.about":"About","nav.skills":"Skills","nav.projects":"Projects","nav.contact":"Contact",
+        "hero.subtitle":"Industrial Electronics and Automation Engineer",
+        "hero.description":"I build Machine Learning, Computer Vision and Embedded Systems projects. Focused on programming, IoT and automation with a growing interest in predictive models and artificial intelligence.",
+        "hero.ctaProjects":"View Projects","hero.ctaContact":"Get in Touch",
+
+        /* KPI */
+        "kpi.exp.title":"Experience","kpi.exp.sub":"5+ years",
+        "kpi.projects.title":"Projects","kpi.projects.sub":"15+ completed",
+        "kpi.tech.title":"Technologies","kpi.tech.sub":"10+ mastered",
+        "kpi.happy.title":"Satisfaction","kpi.happy.sub":"100% clients",
+
+        "about.title":"About","about.subtitle":"Engineer with experience in AI, automation and embedded systems",
+        "about.h3":"Engineer specialized in intelligent solutions",
+        "about.p1":"As an industrial electronics and automation engineer, I create innovative solutions combining hardware and software. My experience ranges from embedded systems to advanced machine learning and computer vision algorithms.",
+        "about.p2":"I focus on building intelligent systems that solve real problems at the intersection of electronics, programming and AI. Each project is an opportunity to apply cutting-edge tech to create efficient, scalable solutions.",
+        "about.p3":"My growing interest in predictive models and AI pushes me to constantly learn and experiment with new techniques and tools.",
+        "about.info.locationLabel":"Location","about.info.locationValue":"Vigo, Spain",
+        "about.info.availabilityLabel":"Availability","about.info.availabilityValue":"Freelance Projects",
+        "about.info.specialtyLabel":"Specialty","about.info.specialtyValue":"ML & Computer Vision",
+        "about.info.experienceLabel":"Experience","about.info.experienceValue":"5+ years",
+
+        "skills.title":"Technical Skills",
+        "skills.subtitle":"Technologies and tools I use to build innovative solutions",
+        "skills.ml.title":"Machine Learning & AI",
+        "skills.ml.dl":"Deep Learning","skills.ml.nn":"Neural Networks","skills.ml.pred":"Predictive Models",
+        "skills.cv.title":"Computer Vision","skills.cv.det":"Object Detection","skills.cv.trk":"Tracking",
+        "skills.prog.title":"Programming",
+        "skills.iot.title":"Embedded Systems & IoT","skills.iot.sensors":"Sensors","skills.iot.edge":"Edge Computing",
+        "skills.auto.title":"Industrial Automation","skills.auto.ctrl":"Control Systems","skills.auto.rob":"Robotics","skills.auto.indAuto":"Industrial Automation",
+        "skills.ds.title":"Data Science & Analytics","skills.ds.da":"Data Analysis","skills.ds.viz":"Visualization",
+
+        "projects.title":"Featured Projects","projects.subtitle":"Real-world solutions built with cutting-edge technologies",
+        "projects.nexus.category":"Computer Vision · Deep Learning",
+        "projects.nexus.title":"NEXUS v8.0 - Facial Recognition System",
+        "projects.nexus.desc":"Advanced multi-purpose facial recognition system with an ensemble architecture and unique features such as Graph Neural Networks, physics-aware motion prediction, and real-time behavior analysis.",
+        "projects.nexus.featuresTitle":"Key features:",
+        "projects.nexus.f1":"Detector ensemble (MTCNN, MediaPipe, Haar Cascade)",
+        "projects.nexus.f2":"Dynamic embedding fusion with FaceNet and InsightFace",
+        "projects.nexus.f3":"Graph Neural Networks for social context",
+        "projects.nexus.f4":"Bayesian uncertainty for maximum reliability",
+        "projects.nexus.f5":"Active re-identification with robust tracking",
+        "projects.nexus.f6":"Behavior analysis and temporal patterns",
+        "projects.nexus.s1":"Recognition Rate",
+        "projects.nexus.s2":"Lines of Code",
+        "projects.nexus.s3":"Real Applications",
+        "projects.nexus.github":"View on GitHub",
+        "projects.nexus.more":"More Info",
+        "projects.next.category":"Coming soon",
+        "projects.next.title":"Your Next Project",
+        "projects.next.desc":"Reserved space for your next innovative project. More projects will be added soon.",
+
+        "contact.title":"Contact","contact.subtitle":"Interested in collaborating? Reach out to discuss your project",
+        "contact.infoTitle":"Contact Information","contact.infoDesc":"I'm available for freelance projects, technical consulting and collaborations. Feel free to contact me to discuss how I can help with your project.",
+        "contact.emailLabel":"Email","contact.response":"Reply within 24 hours",
+        "contact.locationLabel":"Location","contact.locationValue":"Vigo, Spain","contact.remote":"Available for remote projects",
+        "contact.githubHint":"Check my code and projects",
+        "contact.ctaTitle":"Have a project in mind?","contact.ctaDesc":"Let's turn your ideas into reality with state-of-the-art AI, automation and embedded systems.","contact.ctaBtn":"Send Email",
+
+        "footer.rights":"All rights reserved.",
+        "footer.tagline":"Electronic Engineer · Machine Learning · Computer Vision · IoT"
+      }
+    };
+
+    function applyI18n(lang){
+      const dict=i18n[lang]||i18n.es;
+      document.querySelectorAll("[data-i18n]").forEach(el=>{
+        const key=el.getAttribute("data-i18n");
+        if(dict[key]!==undefined) el.textContent=dict[key];
+      });
+      if(dict["meta.title"]) document.title=dict["meta.title"];
+      document.documentElement.setAttribute("lang",lang);
+    }
+    function setActiveFlag(lang){
+      document.querySelectorAll(".lang-flag").forEach(f=>{
+        f.classList.toggle("active", f.dataset.lang===lang);
+      });
+    }
+    function switchLanguage(lang){
+      const chosen=["es","en"].includes(lang)?lang:"es";
+      localStorage.setItem("preferredLanguage",chosen);
+      applyI18n(chosen); setActiveFlag(chosen);
+    }
+
+    /* Hero slider */
+    let currentSlide=0;
+    function nextSlide(){
+      const slides=document.querySelectorAll(".hero-slide");
+      if(!slides.length) return;
+      slides[currentSlide].classList.remove("active");
+      currentSlide=(currentSlide+1)%slides.length;
+      slides[currentSlide].classList.add("active");
+    }
+
+    window.addEventListener("DOMContentLoaded",()=>{
+      const savedLang=localStorage.getItem("preferredLanguage")||"es";
+      switchLanguage(savedLang);
+
+      document.querySelectorAll(".lang-flag").forEach(flag=>{
+        flag.addEventListener("click",()=>switchLanguage(flag.dataset.lang));
+        flag.addEventListener("keydown",e=>{
+          if(e.key==="Enter"||e.key===" "){e.preventDefault();switchLanguage(flag.dataset.lang);}
         });
+      });
 
-        /* ===== Smooth scroll ===== */
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-          anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute("href"));
-            if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-          });
-        });
+      setInterval(nextSlide,5000);
+    });
 
-        /* ===== Sombra del header ===== */
-        const header = document.querySelector("header");
-        window.addEventListener("scroll", () => {
-          header.style.boxShadow = window.pageYOffset > 50
-            ? "0 2px 8px rgba(0,0,0,0.1)"
-            : "0 1px 2px 0 rgba(0,0,0,0.05)";
-        });
+    /* Smooth scroll */
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener("click",e=>{
+        e.preventDefault();
+        const t=document.querySelector(a.getAttribute("href"));
+        if(t) t.scrollIntoView({behavior:"smooth",block:"start"});
+      });
+    });
 
-        console.log("%c¡Hola! 👋", "font-size: 16px; font-weight: bold; color: #2563eb;");
-        console.log("%cPortfolio con i18n listo ✅", "font-size: 14px;");
-    </script>
+    /* Header shadow */
+    const header=document.querySelector("header");
+    window.addEventListener("scroll",()=>{
+      header.style.boxShadow=window.pageYOffset>50
+        ?"0 2px 8px rgba(0,0,0,.1)"
+        :"0 1px 2px 0 rgba(0,0,0,.05)";
+    });
+
+    console.log("%cPortfolio i18n + KPI listo ✅","font-size:14px;color:#2563eb");
+  </script>
 </body>
 </html>
