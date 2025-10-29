@@ -188,6 +188,35 @@
 
     html{scroll-behavior:smooth}
     ::selection{background:var(--primary);color:#fff}
+    /* Hero como contenedor relativo */
+    .hero { position: relative; overflow: hidden; }
+
+/* Fondo a pantalla completa dentro del hero */
+    .hero-bg { position: absolute; inset: 0; z-index: 0; }
+
+    .bg-slide {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+    .bg-slide.active { opacity: 1; }
+
+/* Velo para que el texto se lea siempre bien */
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: rgba(255,255,255,0.88); /* ajusta 0.78–0.92 a gusto */
+      z-index: 1;
+    }
+
+/* Asegura que el contenido y la tarjeta vayan por encima */
+    .hero-container { position: relative; z-index: 2; }
+
+/* (Opcional) quita el texto fantasma en la caja derecha */
+    .hero-image::before { content: none; }
+
   </style>
 </head>
 <body>
@@ -225,12 +254,13 @@
 
   <!-- HERO -->
   <section class="hero section-light" id="inicio">
-    <div class="hero-background">
-      <div class="hero-slide active" data-bg="img/hero1.jpg"></div>
-      <div class="hero-slide" data-bg="img/hero2.jpg"></div>
-      <div class="hero-slide" data-bg="img/hero3.jpg"></div>
-      <div class="hero-slide" data-bg="img/hero4.jpg"></div>
+    <div class="hero-bg" aria-hidden="true">
+      <div class="bg-slide active" data-bg="img/hero1.jpg"></div>
+      <div class="bg-slide"        data-bg="img/hero2.jpg"></div>
+      <div class="bg-slide"        data-bg="img/hero3.jpg"></div>
+      <div class="bg-slide"        data-bg="img/hero4.jpg"></div>
     </div>
+    <!-- FONDO DESLIZANTE DEL HERO -->
 
     <div class="hero-container">
       <div class="hero-content">
@@ -759,7 +789,31 @@
     preloadHeroPhotos();
     startHeroRotator();
   });
+    function initHeroBackgroundSlider() {
+    const slides = document.querySelectorAll('.bg-slide');
+    if (!slides.length) return;
 
+    // Inyecta las imágenes desde data-bg
+    slides.forEach(s => {
+      const url = s.getAttribute('data-bg');
+      if (url) s.style.backgroundImage = `url('${url}')`;
+    });
+
+    // Preload muy básico
+    slides.forEach(s => { const im = new Image(); im.src = s.getAttribute('data-bg'); });
+
+    // Rotación
+    let i = 0;
+    setInterval(() => {
+      slides[i].classList.remove('active');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('active');
+    }, 6000); // cambia cada 6s
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    initHeroBackgroundSlider();
+  });
 
   </script>
 </body>
