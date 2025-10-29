@@ -7,6 +7,8 @@
   <meta name="keywords" content="machine learning, vision artificial, sistemas embebidos, IoT, automatización, ingeniero"/>
   <meta name="author" content="Jesús Torres Nogueira"/>
   <title data-i18n="meta.title">Jesús Torres Nogueira | Ingeniero Electrónico</title>
+  <link rel="preload" as="image" href="img/hero1.jpg">
+
 
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
@@ -76,12 +78,11 @@
     .kpis-topband{
       height:90px;
       /* “Textura” ligera embebida (puedes cambiar por tu imagen) */
-      background-image:
-        radial-gradient(closest-side, rgba(0,0,0,.06), rgba(0,0,0,0) 80%),
-        linear-gradient(135deg,#e7e2da 0%,#d9d2c7 35%,#cfc7bb 70%,#e5dfd5 100%);
-      background-size:120px 120px, cover;
+      background-image:url('img/stone-texture.jpg');
+      background-size: cover;
       background-position:center;
-      border-bottom:1px solid rgba(0,0,0,.06);
+      background-repeat: no-repeat;
+      border-bottom: 1px solid rgba(0,0,0,.06);
       box-shadow:inset 0 -10px 20px rgba(0,0,0,.05)
     }
     .kpis .kpis-container{max-width:1280px;margin:0 auto;padding:0 2rem}
@@ -225,9 +226,10 @@
   <!-- HERO -->
   <section class="hero section-light" id="inicio">
     <div class="hero-background">
-      <div class="hero-slide active"></div>
-      <div class="hero-slide"></div>
-      <div class="hero-slide"></div>
+      <div class="hero-slide active" data-bg="img/hero1.jpg"></div>
+      <div class="hero-slide" data-bg="img/hero2.jpg"></div>
+      <div class="hero-slide" data-bg="img/hero3.jpg"></div>
+      <div class="hero-slide" data-bg="img/hero4.jpg"></div>
     </div>
 
     <div class="hero-container">
@@ -245,7 +247,12 @@
         </div>
       </div>
       <div class="hero-image" aria-label="Foto profesional">
-        <!-- <img src="tu-foto.jpg" alt="Jesús Torres Nogueira"> -->
+        <img src="img/jesus.jpg" 
+             alt="Jesús Torres Nogueira"
+             width="1000" height="600"
+             loading="eager"
+             decoding="async"
+             style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"> 
       </div>
     </div>
   </section>
@@ -403,7 +410,14 @@
       <div class="projects-grid">
 
         <article class="project-card">
-          <div class="project-image" aria-label="Imagen del proyecto NEXUS"></div>
+          <div class="project-image" aria-label="Imagen del proyecto NEXUS">
+            <img src="img/nexus.jpg"
+                 alt="NEXUS - Sistema de Reconocimiento Facial"
+                 loading="lazy"
+                 decoding="async"
+                 style="width: 100%; height: 100%; object-fit: cover;">
+
+          </div>
           <div class="project-content">
             <div class="project-header">
               <div class="project-category" data-i18n="projects.nexus.category">Visión Artificial · Deep Learning</div>
