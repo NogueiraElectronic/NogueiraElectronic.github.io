@@ -65,9 +65,61 @@
     .hero-content h1{font-size:3rem;font-weight:700;color:#111827;margin-bottom:.5rem;line-height:1.1;letter-spacing:-.025em}
     .hero-content .subtitle{font-size:1.5rem;color:#1e40af;font-weight:600;margin-bottom:1.5rem}
     .hero-content .description{font-size:1.1rem;color:#374151;font-weight:500;margin-bottom:2rem;line-height:1.7}
-    .hero-image{width:100%;height:500px;background:rgba(255,255,255,.8);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:1rem;position:relative;overflow:hidden;backdrop-filter:blur(10px);box-shadow:var(--shadow-lg)}
-    .hero-image::before{content:"";position:absolute;font-size:1.1rem;font-weight:500;color:var(--text-light)}
-    .hero-image img{width:100%;height:100%;object-fit:cover}
+    .hero-image{
+      width:100%;
+      height:500px;
+      background:rgba(255,255,255,.8);
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      overflow:hidden;
+      backdrop-filter:blur(10px);
+      box-shadow:var(--shadow-lg);
+    }
+    .hero-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      position:absolute;
+      top:0;
+      left:0;
+      opacity:0;
+      transition:opacity 1.2s ease-in-out;
+    }
+    .hero-image img.active{
+      opacity:1;
+    }
+    .hero-carousel-indicators{
+      position:absolute;
+      bottom:20px;
+      left:50%;
+      transform:translateX(-50%);
+      display:flex;
+      gap:8px;
+      z-index:10;
+    }
+    .carousel-dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:rgba(255,255,255,.6);
+      border:1px solid rgba(255,255,255,.8);
+      cursor:pointer;
+      transition:all .3s;
+      box-shadow:0 2px 4px rgba(0,0,0,.2);
+    }
+    .carousel-dot:hover{
+      background:rgba(255,255,255,.9);
+      transform:scale(1.2);
+    }
+    .carousel-dot.active{
+      background:var(--primary);
+      width:24px;
+      border-radius:5px;
+      border-color:var(--primary);
+    }
 
     /* Botones */
     .btn-group{display:flex;gap:1rem;flex-wrap:wrap}
@@ -303,13 +355,39 @@
           <a href="#contacto" class="btn btn-secondary" data-i18n="hero.ctaContact">Contactar</a>
         </div>
       </div>
-      <div class="hero-image" aria-label="Foto profesional">
+      <div class="hero-image" aria-label="Carrusel de imágenes profesionales">
+        <!-- Imagen 1: Tu foto actual -->
         <img src="img/jesus.jpg" 
              alt="Jesús Torres Nogueira"
-             width="1000" height="600"
+             class="active"
              loading="eager"
-             decoding="async"
-             style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;"> 
+             decoding="async"> 
+        
+        <!-- Imagen 2: Proyecto NEXUS o trabajo con ML -->
+        <img src="img/hero1.jpg" 
+             alt="Trabajo en Machine Learning"
+             loading="lazy"
+             decoding="async">
+        
+        <!-- Imagen 3: Sistemas embebidos o IoT -->
+        <img src="img/hero2.jpg" 
+             alt="Sistemas Embebidos e IoT"
+             loading="lazy"
+             decoding="async">
+        
+        <!-- Imagen 4: Visión artificial o proyectos -->
+        <img src="img/hero4.jpg" 
+             alt="Proyectos de Visión Artificial"
+             loading="lazy"
+             decoding="async">
+        
+        <!-- Indicadores del carrusel -->
+        <div class="hero-carousel-indicators">
+          <span class="carousel-dot active" data-slide="0"></span>
+          <span class="carousel-dot" data-slide="1"></span>
+          <span class="carousel-dot" data-slide="2"></span>
+          <span class="carousel-dot" data-slide="3"></span>
+        </div>
       </div>
     </div>
   </section>
@@ -328,7 +406,7 @@
             </svg>
           </div>
           <div class="kpi-title" data-i18n="kpi.exp.title">Experiencia</div>
-          <div class="kpi-sub" data-i18n="kpi.exp.sub">1+ años</div>
+          <div class="kpi-sub" data-i18n="kpi.exp.sub">5+ años</div>
         </article>
 
         <article class="kpi-card">
@@ -339,7 +417,7 @@
             </svg>
           </div>
           <div class="kpi-title" data-i18n="kpi.projects.title">Proyectos</div>
-          <div class="kpi-sub" data-i18n="kpi.projects.sub">10+ completados</div>
+          <div class="kpi-sub" data-i18n="kpi.projects.sub">15+ completados</div>
         </article>
 
         <article class="kpi-card">
@@ -377,7 +455,7 @@
             <li><span class="info-label">Email</span><span class="info-value">nogueira.electronico@gmail.com</span></li>
             <li><span class="info-label" data-i18n="about.info.availabilityLabel">Disponibilidad</span><span class="info-value" data-i18n="about.info.availabilityValue">Proyectos Freelance</span></li>
             <li><span class="info-label" data-i18n="about.info.specialtyLabel">Especialización</span><span class="info-value" data-i18n="about.info.specialtyValue">ML &amp; Visión Artificial</span></li>
-            <li><span class="info-label" data-i18n="about.info.experienceLabel">Experiencia</span><span class="info-value" data-i18n="about.info.experienceValue">1+ años</span></li>
+            <li><span class="info-label" data-i18n="about.info.experienceLabel">Experiencia</span><span class="info-value" data-i18n="about.info.experienceValue">5+ años</span></li>
           </ul>
         </aside>
       </div>
@@ -415,7 +493,7 @@
         </div>
 
         <div class="skill-card">
-          <div class="skill-icon">{ }</div>
+          <div class="skill-icon">&lt;/&gt;</div>
           <h3 data-i18n="skills.prog.title">Programación</h3>
           <div class="skill-tags">
             <span class="skill-tag">Python</span><span class="skill-tag">C/C++</span><span class="skill-tag">JavaScript</span>
@@ -445,7 +523,7 @@
         </div>
 
         <div class="skill-card">
-          <div class="skill-icon">📊</div>
+          <div class="skill-icon">📈</div>
           <h3 data-i18n="skills.ds.title">Data Science &amp; Analytics</h3>
           <div class="skill-tags">
             <span class="skill-tag">NumPy</span><span class="skill-tag">Pandas</span><span class="skill-tag">Matplotlib</span>
@@ -455,7 +533,7 @@
         </div>
 
         <div class="skill-card">
-          <div class="skill-icon">🎨</div>
+          <div class="skill-icon">3D</div>
           <h3 data-i18n="skills.3d.title">Modelado 3D</h3>
           <div class="skill-tags">
             <span class="skill-tag">CAD</span><span class="skill-tag">Revit</span><span class="skill-tag">Blender</span>
@@ -465,7 +543,7 @@
         </div>
 
         <div class="skill-card">
-          <div class="skill-icon">🔧</div>
+          <div class="skill-icon">⚡</div>
           <h3 data-i18n="skills.inst.title">Instrumentación</h3>
           <div class="skill-tags">
             <span class="skill-tag" data-i18n="skills.inst.lowv">Montajes Baja Tensión</span>
@@ -617,7 +695,7 @@
         "hero.ctaProjects":"Ver Proyectos","hero.ctaContact":"Contactar",
 
         /* KPI */
-        "kpi.exp.title":"Experiencia","kpi.exp.sub":"1+ años",
+        "kpi.exp.title":"Experiencia","kpi.exp.sub":"1+ año",
         "kpi.projects.title":"Proyectos","kpi.projects.sub":"10+ completados",
         "kpi.tech.title":"Tecnologías","kpi.tech.sub":"10+ dominadas",
         "kpi.happy.title":"Satisfacción","kpi.happy.sub":"100% clientes",
@@ -631,7 +709,7 @@
         "about.info.locationLabel":"Ubicación","about.info.locationValue":"Vigo, España",
         "about.info.availabilityLabel":"Disponibilidad","about.info.availabilityValue":"Proyectos Freelance",
         "about.info.specialtyLabel":"Especialización","about.info.specialtyValue":"ML & Visión Artificial",
-        "about.info.experienceLabel":"Experiencia","about.info.experienceValue":"1+ años",
+        "about.info.experienceLabel":"Experiencia","about.info.experienceValue":"1+ año",
 
         "skills.title":"Habilidades Técnicas",
         "skills.subtitle":"Tecnologías y herramientas que domino para crear soluciones innovadoras",
@@ -684,7 +762,7 @@
         "hero.ctaProjects":"View Projects","hero.ctaContact":"Get in Touch",
 
         /* KPI */
-        "kpi.exp.title":"Experience","kpi.exp.sub":"1+ years",
+        "kpi.exp.title":"Experience","kpi.exp.sub":"1+ year",
         "kpi.projects.title":"Projects","kpi.projects.sub":"10+ completed",
         "kpi.tech.title":"Technologies","kpi.tech.sub":"10+ mastered",
         "kpi.happy.title":"Satisfaction","kpi.happy.sub":"100% clients",
@@ -697,7 +775,7 @@
         "about.info.locationLabel":"Location","about.info.locationValue":"Vigo, Spain",
         "about.info.availabilityLabel":"Availability","about.info.availabilityValue":"Freelance Projects",
         "about.info.specialtyLabel":"Specialty","about.info.specialtyValue":"ML & Computer Vision",
-        "about.info.experienceLabel":"Experience","about.info.experienceValue":"1+ years",
+        "about.info.experienceLabel":"Experience","about.info.experienceValue":"1+ year",
 
         "skills.title":"Technical Skills",
         "skills.subtitle":"Technologies and tools I use to build innovative solutions",
@@ -771,6 +849,49 @@
         flag.addEventListener("click",()=>switchLanguage(flag.dataset.lang));
         flag.addEventListener("keydown",e=>{
           if(e.key==="Enter"||e.key===" "){e.preventDefault();switchLanguage(flag.dataset.lang);}
+        });
+      });
+    });
+
+    /* Hero Image Carousel */
+    let currentHeroImg = 0;
+    let heroCarouselInterval;
+
+    function nextHeroImage(){
+      const imgs = document.querySelectorAll(".hero-image img");
+      const dots = document.querySelectorAll(".carousel-dot");
+      if(!imgs.length) return;
+      
+      imgs[currentHeroImg].classList.remove("active");
+      dots[currentHeroImg].classList.remove("active");
+      currentHeroImg = (currentHeroImg + 1) % imgs.length;
+      imgs[currentHeroImg].classList.add("active");
+      dots[currentHeroImg].classList.add("active");
+    }
+
+    function goToSlide(slideNum){
+      const imgs = document.querySelectorAll(".hero-image img");
+      const dots = document.querySelectorAll(".carousel-dot");
+      
+      imgs[currentHeroImg].classList.remove("active");
+      dots[currentHeroImg].classList.remove("active");
+      currentHeroImg = slideNum;
+      imgs[currentHeroImg].classList.add("active");
+      dots[currentHeroImg].classList.add("active");
+      
+      // Reiniciar el intervalo cuando se hace clic manual
+      clearInterval(heroCarouselInterval);
+      heroCarouselInterval = setInterval(nextHeroImage, 5000);
+    }
+
+    // Iniciar carrusel automático
+    window.addEventListener("DOMContentLoaded", () => {
+      heroCarouselInterval = setInterval(nextHeroImage, 5000);
+      
+      // Click en dots del carrusel
+      document.querySelectorAll(".carousel-dot").forEach(dot => {
+        dot.addEventListener("click", () => {
+          goToSlide(parseInt(dot.dataset.slide));
         });
       });
     });
