@@ -7,7 +7,7 @@
   <meta name="keywords" content="machine learning, vision artificial, sistemas embebidos, IoT, automatización, ingeniero"/>
   <meta name="author" content="Jesús Torres Nogueira"/>
   <title data-i18n="meta.title">Jesús Torres Nogueira | Ingeniero Electrónico</title>
-  <link rel="preload" as="image" href="img/hero3.jpg">
+  <link rel="preload" as="image" href="img/hero1.jpg">
 
 
   <style>
@@ -40,14 +40,14 @@
     .lang-flag.active{opacity:1;border-color:var(--primary);box-shadow:0 0 0 2px rgba(37,99,235,.1)}
 
     /* Hero + slider */
-    .hero{padding-top:6rem;padding-bottom:4rem;position:relative;overflow:hidden;min-height:600px;background:var(--bg-primary)}
-    .hero-background{position:absolute;inset:0;z-index:0}
-    .hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.5s ease-in-out;background-size:cover;background-position:center}
-    .hero-slide.active{opacity:1}
-    .hero-slide::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.92) 50%,rgba(255,255,255,.85) 100%)}
-    .hero-slide:nth-child(1){background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)}
-    .hero-slide:nth-child(2){background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%)}
-    .hero-slide:nth-child(3){background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%)}
+    .hero{
+      padding-top:6rem;
+      padding-bottom:4rem;
+      position:relative;
+      overflow:hidden;
+      min-height:600px;
+      background:var(--bg-primary);
+    }
     .hero-container{max-width:1280px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;z-index:1}
     
     /* NUEVA: Foto de perfil de GitHub */
@@ -87,32 +87,46 @@
     .section-header p{font-size:1.1rem;color:var(--text-secondary);max-width:700px}
 
     /* ===== NUEVA SECCIÓN KPI (sustituye a las stats anteriores) ===== */
-    .kpis{position:relative;background:var(--bg-secondary);padding:0 0 4rem}
-    .kpis-topband{
-      height:90px;
-      /* "Textura" ligera embebida (puedes cambiar por tu imagen) */
-      background-image:url('img/stone-texture.jpg');
-      background-size: cover;
+    .kpis{
+      position:relative;
+      padding:4rem 0;
+      background-image:url('img/hero2.jpg');
+      background-size:cover;
       background-position:center;
-      background-repeat: no-repeat;
-      border-bottom: 1px solid rgba(0,0,0,.06);
-      box-shadow:inset 0 -10px 20px rgba(0,0,0,.05)
+      background-attachment:fixed;
     }
-    .kpis .kpis-container{max-width:1280px;margin:0 auto;padding:0 2rem}
-    .kpi-grid{display:grid;gap:2rem;margin-top:-45px}
+    .kpis::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(255,255,255,0.92);
+      z-index:0;
+    }
+    .kpis-topband{display:none;}
+    .kpis .kpis-container{max-width:1280px;margin:0 auto;padding:0 2rem;position:relative;z-index:1}
+    .kpi-grid{display:grid;gap:2rem;margin-top:0}
     /* 3 columnas en desktop, 2 en tablet, 1 en móvil */
     @media (min-width:1025px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
     @media (max-width:1024px){.kpi-grid{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:640px){.kpi-grid{grid-template-columns:1fr}}
 
     .kpi-card{
-      background:#fff;border:1px solid var(--border);border-radius:12px;
+      background:#fff;border:1px solid var(--border);border-radius:0;
       padding:2.25rem 1.75rem;box-shadow:0 6px 20px rgba(0,0,0,.06);
-      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+      text-align:center;
     }
     .kpi-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.10);border-color:rgba(37,99,235,.25)}
-    .kpi-icon{width:52px;height:52px;border-radius:10px;display:grid;place-items:center;border:2px solid var(--border);margin-bottom:1rem}
-    .kpi-icon svg{width:26px;height:26px;stroke:#6b7280}
+    .kpi-icon{
+      width:80px;
+      height:80px;
+      border-radius:0;
+      display:grid;
+      place-items:center;
+      border:2px solid var(--border);
+      margin:0 auto 1.5rem;
+    }
+    .kpi-icon svg{width:42px;height:42px;stroke:#2563eb;stroke-width:2}
     .kpi-title{font-size:1.05rem;letter-spacing:.08em;color:var(--text-primary);font-weight:700;text-transform:uppercase;margin-bottom:.35rem}
     .kpi-sub{color:var(--text-secondary);font-size:.95rem}
 
@@ -140,7 +154,7 @@
     .project-card{background:var(--bg-primary);border:1px solid var(--border);display:grid;grid-template-columns:400px 1fr;overflow:hidden;transition:all .2s}
     .project-card:hover{box-shadow:var(--shadow-lg)}
     .project-image{width:100%;min-height:300px;background:var(--bg-secondary);border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-light);font-size:.95rem;position:relative;overflow:hidden}
-    .project-image::before{content:"";position:absolute;font-weight:500}
+    .project-image::before{content:"SCREENSHOT DEL PROYECTO";position:absolute;font-weight:500}
     .project-content{padding:2rem;display:flex;flex-direction:column}
     .project-header{margin-bottom:1.5rem}
     .project-category{font-size:.85rem;color:var(--primary);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}
@@ -202,33 +216,17 @@
 
     html{scroll-behavior:smooth}
     ::selection{background:var(--primary);color:#fff}
-    /* Hero como contenedor relativo */
-    .hero { position: relative; overflow: hidden; }
-
-/* Fondo a pantalla completa dentro del hero */
-    .hero-bg { position: absolute; inset: 0; z-index: 0; }
-
-    .bg-slide {
-      position: absolute; inset: 0;
-      background-size: cover;
-      background-position: center;
-      opacity: 0;
-      transition: opacity 1.5s ease-in-out;
-    }
-    .bg-slide.active { opacity: 1; }
-
-/* Velo para que el texto se lea siempre bien */
+    
+    /* Hero con fondo estático */
     .hero::before {
       content: "";
-      position: absolute; inset: 0;
-      background: rgba(255,255,255,0.88); /* ajusta 0.78–0.92 a gusto */
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.88);
       z-index: 1;
     }
 
-/* Asegura que el contenido y la tarjeta vayan por encima */
     .hero-container { position: relative; z-index: 2; }
-
-/* (Opcional) quita el texto fantasma en la caja derecha */
     .hero-image::before { content: none; }
 
   </style>
@@ -267,14 +265,8 @@
   </header>
 
   <!-- HERO -->
-  <section class="hero section-light" id="inicio">
-    <div class="hero-bg" aria-hidden="true">
-      <div class="bg-slide active" data-bg="img/hero1.jpg"></div>
-      <div class="bg-slide"        data-bg="img/hero2.jpg"></div>
-      <div class="bg-slide"        data-bg="img/hero3.jpg"></div>
-      <div class="bg-slide"        data-bg="img/hero4.jpg"></div>
-    </div>
-    <!-- FONDO DESLIZANTE DEL HERO -->
+  <section class="hero section-light" id="inicio" style="background-image: url('img/hero3.jpg'); background-size: cover; background-position: center;">
+    <!-- FONDO ESTÁTICO DEL HERO -->
 
     <div class="hero-container">
       <div class="hero-content">
@@ -307,9 +299,8 @@
     </div>
   </section>
 
-  <!-- ===== NUEVOS KPI (reemplazo visual de las stats) ===== -->
+  <!-- ===== NUEVOS KPI ===== -->
   <section class="kpis" aria-label="Indicadores destacados">
-    <div class="kpis-topband"></div>
     <div class="kpis-container">
       <div class="kpi-grid">
 
@@ -444,6 +435,27 @@
             <span class="skill-tag">NumPy</span><span class="skill-tag">Pandas</span><span class="skill-tag">Matplotlib</span>
             <span class="skill-tag" data-i18n="skills.ds.da">Data Analysis</span>
             <span class="skill-tag" data-i18n="skills.ds.viz">Visualization</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon">🎨</div>
+          <h3 data-i18n="skills.3d.title">Modelado 3D</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">CAD</span><span class="skill-tag">Revit</span><span class="skill-tag">Blender</span>
+            <span class="skill-tag" data-i18n="skills.3d.design">Diseño 3D</span>
+            <span class="skill-tag" data-i18n="skills.3d.render">Renderizado</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon">🔧</div>
+          <h3 data-i18n="skills.inst.title">Instrumentación</h3>
+          <div class="skill-tags">
+            <span class="skill-tag" data-i18n="skills.inst.lowv">Montajes Baja Tensión</span>
+            <span class="skill-tag">Arduino</span><span class="skill-tag">Raspberry Pi</span>
+            <span class="skill-tag" data-i18n="skills.inst.sensors">Sensores</span>
+            <span class="skill-tag" data-i18n="skills.inst.amp">Amplificación de Señales</span>
           </div>
         </div>
       </div>
@@ -614,6 +626,8 @@
         "skills.iot.title":"Sistemas Embebidos & IoT","skills.iot.sensors":"Sensores","skills.iot.edge":"Edge Computing",
         "skills.auto.title":"Automatización Industrial","skills.auto.ctrl":"Control Systems","skills.auto.rob":"Robótica","skills.auto.indAuto":"Industrial Automation",
         "skills.ds.title":"Data Science & Analytics","skills.ds.da":"Data Analysis","skills.ds.viz":"Visualization",
+        "skills.3d.title":"Modelado 3D","skills.3d.design":"Diseño 3D","skills.3d.render":"Renderizado",
+        "skills.inst.title":"Instrumentación","skills.inst.lowv":"Montajes Baja Tensión","skills.inst.sensors":"Sensores","skills.inst.amp":"Amplificación de Señales",
 
         "projects.title":"Proyectos Destacados","projects.subtitle":"Soluciones reales desarrolladas con tecnologías de vanguardia",
         "projects.nexus.category":"Visión Artificial · Deep Learning",
@@ -678,6 +692,8 @@
         "skills.iot.title":"Embedded Systems & IoT","skills.iot.sensors":"Sensors","skills.iot.edge":"Edge Computing",
         "skills.auto.title":"Industrial Automation","skills.auto.ctrl":"Control Systems","skills.auto.rob":"Robotics","skills.auto.indAuto":"Industrial Automation",
         "skills.ds.title":"Data Science & Analytics","skills.ds.da":"Data Analysis","skills.ds.viz":"Visualization",
+        "skills.3d.title":"3D Modeling","skills.3d.design":"3D Design","skills.3d.render":"Rendering",
+        "skills.inst.title":"Instrumentation","skills.inst.lowv":"Low Voltage Installations","skills.inst.sensors":"Sensors","skills.inst.amp":"Signal Amplification",
 
         "projects.title":"Featured Projects","projects.subtitle":"Real-world solutions built with cutting-edge technologies",
         "projects.nexus.category":"Computer Vision · Deep Learning",
@@ -731,16 +747,6 @@
       applyI18n(chosen); setActiveFlag(chosen);
     }
 
-    /* Hero slider */
-    let currentSlide=0;
-    function nextSlide(){
-      const slides=document.querySelectorAll(".hero-slide");
-      if(!slides.length) return;
-      slides[currentSlide].classList.remove("active");
-      currentSlide=(currentSlide+1)%slides.length;
-      slides[currentSlide].classList.add("active");
-    }
-
     window.addEventListener("DOMContentLoaded",()=>{
       const savedLang=localStorage.getItem("preferredLanguage")||"es";
       switchLanguage(savedLang);
@@ -751,8 +757,6 @@
           if(e.key==="Enter"||e.key===" "){e.preventDefault();switchLanguage(flag.dataset.lang);}
         });
       });
-
-      setInterval(nextSlide,5000);
     });
 
     /* Smooth scroll */
@@ -773,24 +777,6 @@
     });
 
     console.log("%cPortfolio i18n + KPI listo ✅","font-size:14px;color:#2563eb");
-
-    function initHeroBackgroundSlider() {
-      const slides = document.querySelectorAll('.bg-slide');
-      if (!slides.length) return;
-
-      // Inyecta las imágenes desde data-bg
-      slides.forEach(s => {
-        const url = s.getAttribute('data-bg');
-        if (url) s.style.backgroundImage = `url('${url}')`;
-      });
-
-      // Preload muy básico
-      slides.forEach(s => { const im = new Image(); im.src = s.getAttribute('data-bg'); });
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      initHeroBackgroundSlider();
-    });
 
   </script>
 </body>
