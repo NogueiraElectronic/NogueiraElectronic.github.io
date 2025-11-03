@@ -1,5 +1,4 @@
-```bash
-cat > README.md << 'EOF'
+
 # Jesús Torres Nogueira – Electronic Engineer Portfolio
 
 A modern, fully-responsive personal portfolio showcasing expertise in Machine Learning, Computer Vision, Embedded Systems, and Industrial Automation. Built with clean HTML, CSS, and vanilla JavaScript – no frameworks, no dependencies.
