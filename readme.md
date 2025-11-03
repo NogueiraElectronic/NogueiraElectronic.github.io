@@ -291,7 +291,4 @@ If this portfolio has been useful or inspiring, consider giving it a star on Git
 Made with dedication by Jesús Torres Nogueira
 
 </div>
-EOF
-```
 
----
