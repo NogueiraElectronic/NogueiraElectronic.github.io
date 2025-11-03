@@ -749,6 +749,85 @@
             </div>
           </div>
         </article>
+        <!-- PROYECTO 4: CHLORELLA PREDICTOR -->
+        <article class="project-card">
+          <div class="project-image" aria-label="Imagen del proyecto Chlorella Predictor">
+            <img src="img/chlorella-predictor.jpg"
+                 alt="Chlorella Predictor - Sistema de Predicción de Biomasa"
+                 loading="lazy"
+                 decoding="async"
+                 style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          
+          <div class="project-content">
+            <div class="project-header">
+              <div class="project-category" data-i18n="projects.predictor.category">
+                Machine Learning · Deep Learning · Biotecnología
+              </div>
+              <h3 class="project-title" data-i18n="projects.predictor.title">
+                Chlorella Predictor - Sistema de Predicción de Biomasa
+              </h3>
+            </div>
+            
+            <p class="project-description" data-i18n="projects.predictor.desc">
+              Sistema multi-modal de alta precisión para predecir biomasa de Chlorella vulgaris en fotobioreactores. 
+              Combina conocimiento biológico con deep learning usando Physics-Informed Neural Networks (PINN), 
+              LSTM y modelos de ML con arquitectura ensemble.
+            </p>
+            
+            <div class="project-features">
+              <h4 data-i18n="projects.predictor.featuresTitle">Características principales:</h4>
+              <ul>
+                <li data-i18n="projects.predictor.f1">6 modelos predictivos (Linear, Ridge, RandomForest, XGBoost, PINN, LSTM)</li>
+                <li data-i18n="projects.predictor.f2">Ensemble ponderado basado en rendimiento (R² = 0.93)</li>
+                <li data-i18n="projects.predictor.f3">Feature engineering biológico (40+ variables científicas)</li>
+                <li data-i18n="projects.predictor.f4">Detección automática de data leakage (umbral 0.95)</li>
+                <li data-i18n="projects.predictor.f5">Validación temporal por escenarios (45 train / 15 val)</li>
+                <li data-i18n="projects.predictor.f6">Ecuaciones científicas (Michaelis-Menten, Haldane, Jassby-Platt)</li>
+              </ul>
+            </div>
+            
+            <div class="project-tech">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">PyTorch</span>
+              <span class="tech-tag">Scikit-learn</span>
+              <span class="tech-tag">XGBoost</span>
+              <span class="tech-tag">LSTM</span>
+              <span class="tech-tag">PINN</span>
+              <span class="tech-tag">NumPy</span>
+              <span class="tech-tag">Pandas</span>
+            </div>
+            
+            <div class="project-stats">
+              <div class="project-stat">
+                <span class="project-stat-value">0.93</span>
+                <span class="project-stat-label" data-i18n="projects.predictor.s1">R² Score</span>
+              </div>
+              <div class="project-stat">
+                <span class="project-stat-value">40+</span>
+                <span class="project-stat-label" data-i18n="projects.predictor.s2">Variables Biológicas</span>
+              </div>
+              <div class="project-stat">
+                <span class="project-stat-value">6</span>
+                <span class="project-stat-label" data-i18n="projects.predictor.s3">Modelos de ML/DL</span>
+              </div>
+            </div>
+            
+            <div class="project-links">
+              <a href="https://github.com/NogueiraElectronic/chlorella-predictor" 
+                 class="btn btn-primary" 
+                 target="_blank" 
+                 data-i18n="projects.predictor.github">
+                Ver en GitHub
+              </a>
+              <a href="#contacto" 
+                 class="btn btn-secondary" 
+                 data-i18n="projects.predictor.more">
+                Más Información
+              </a>
+            </div>
+          </div>
+        </article>
 
         <!-- PROYECTO 3: NAVE INDUSTRIAL -->
         <article class="project-card">
@@ -791,6 +870,8 @@
             </div>
           </div>
         </article>
+
+        
 
       </div>
     </div>
@@ -937,6 +1018,23 @@
         "projects.warehouse.s3":"Planos Técnicos",
         "projects.warehouse.github":"Ver en GitHub",
         "projects.warehouse.pdf":"Ver PDF",
+      // PROYECTO: CHLORELLA PREDICTOR
+        "projects.predictor.category": "Machine Learning · Deep Learning · Biotecnología",
+        "projects.predictor.title": "Chlorella Predictor - Sistema de Predicción de Biomasa",
+        "projects.predictor.desc": "Sistema multi-modal de alta precisión para predecir biomasa de Chlorella vulgaris en fotobioreactores. Combina conocimiento biológico con deep learning usando Physics-Informed Neural Networks (PINN), LSTM y modelos de ML con arquitectura ensemble.",
+        "projects.predictor.featuresTitle": "Características principales:",
+        "projects.predictor.f1": "6 modelos predictivos (Linear, Ridge, RandomForest, XGBoost, PINN, LSTM)",
+        "projects.predictor.f2": "Ensemble ponderado basado en rendimiento (R² = 0.93)",
+        "projects.predictor.f3": "Feature engineering biológico (40+ variables científicas)",
+        "projects.predictor.f4": "Detección automática de data leakage (umbral 0.95)",
+        "projects.predictor.f5": "Validación temporal por escenarios (45 train / 15 val)",
+        "projects.predictor.f6": "Ecuaciones científicas (Michaelis-Menten, Haldane, Jassby-Platt)",
+        "projects.predictor.s1": "R² Score",
+        "projects.predictor.s2": "Variables Biológicas",
+        "projects.predictor.s3": "Modelos de ML/DL",
+        "projects.predictor.github": "Ver en GitHub",
+        "projects.predictor.more": "Más Información",
+        
         "projects.next.category":"Próximamente",
         "projects.next.title":"Tu Próximo Proyecto",
         "projects.next.desc":"Espacio reservado para tu siguiente proyecto innovador. Más proyectos serán agregados próximamente.",
@@ -1024,6 +1122,23 @@
         "projects.warehouse.s3":"Technical Drawings",
         "projects.warehouse.github":"View on GitHub",
         "projects.warehouse.pdf":"View PDF",
+                // PROJECT: CHLORELLA PREDICTOR
+        "projects.predictor.category": "Machine Learning · Deep Learning · Biotechnology",
+        "projects.predictor.title": "Chlorella Predictor - Biomass Prediction System",
+        "projects.predictor.desc": "High-precision multi-modal system for predicting Chlorella vulgaris biomass in photobioreactors. Combines biological knowledge with deep learning using Physics-Informed Neural Networks (PINN), LSTM and ML models with ensemble architecture.",
+        "projects.predictor.featuresTitle": "Key features:",
+        "projects.predictor.f1": "6 predictive models (Linear, Ridge, RandomForest, XGBoost, PINN, LSTM)",
+        "projects.predictor.f2": "Weighted ensemble based on performance (R² = 0.93)",
+        "projects.predictor.f3": "Biological feature engineering (40+ scientific variables)",
+        "projects.predictor.f4": "Automatic data leakage detection (threshold 0.95)",
+        "projects.predictor.f5": "Temporal validation by scenarios (45 train / 15 val)",
+        "projects.predictor.f6": "Scientific equations (Michaelis-Menten, Haldane, Jassby-Platt)",
+        "projects.predictor.s1": "R² Score",
+        "projects.predictor.s2": "Biological Variables",
+        "projects.predictor.s3": "ML/DL Models",
+        "projects.predictor.github": "View on GitHub",
+        "projects.predictor.more": "More Info",
+
         "projects.next.category":"Coming soon",
         "projects.next.title":"Your Next Project",
         "projects.next.desc":"Reserved space for your next innovative project. More projects will be added soon.",
